@@ -50,13 +50,13 @@ class Sortie
     private $infosSortie;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sorties")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
     private $organisateur;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sortiesInscrits")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="sortiesInscrits")
      */
     private $listeParticipants;
 
@@ -160,12 +160,12 @@ class Sortie
         return $this;
     }
 
-    public function getOrganisateur(): ?Participant
+    public function getOrganisateur(): ?User
     {
         return $this->organisateur;
     }
 
-    public function setOrganisateur(?Participant $organisateur): self
+    public function setOrganisateur(?User $organisateur): self
     {
         $this->organisateur = $organisateur;
 
@@ -173,14 +173,14 @@ class Sortie
     }
 
     /**
-     * @return Collection|Participant[]
+     * @return Collection|User[]
      */
     public function getListeParticipants(): Collection
     {
         return $this->listeParticipants;
     }
 
-    public function addListeParticipant(Participant $listeParticipant): self
+    public function addListeParticipant(User $listeParticipant): self
     {
         if (!$this->listeParticipants->contains($listeParticipant)) {
             $this->listeParticipants[] = $listeParticipant;
@@ -190,7 +190,7 @@ class Sortie
         return $this;
     }
 
-    public function removeListeParticipant(Participant $listeParticipant): self
+    public function removeListeParticipant(User $listeParticipant): self
     {
         if ($this->listeParticipants->removeElement($listeParticipant)) {
             $listeParticipant->removeSortiesInscrit($this);

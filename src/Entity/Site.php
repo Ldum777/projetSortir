@@ -25,7 +25,7 @@ class Site
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="siteRattachement")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="siteRattachement")
      */
     private $rattacheParticipants;
 
@@ -65,7 +65,7 @@ class Site
         return $this->rattacheParticipants;
     }
 
-    public function addRattacheParticipant(Participant $rattacheParticipant): self
+    public function addRattacheParticipant(User $rattacheParticipant): self
     {
         if (!$this->rattacheParticipants->contains($rattacheParticipant)) {
             $this->rattacheParticipants[] = $rattacheParticipant;
@@ -75,7 +75,7 @@ class Site
         return $this;
     }
 
-    public function removeRattacheParticipant(Participant $rattacheParticipant): self
+    public function removeRattacheParticipant(User $rattacheParticipant): self
     {
         if ($this->rattacheParticipants->removeElement($rattacheParticipant)) {
             // set the owning side to null (unless already changed)

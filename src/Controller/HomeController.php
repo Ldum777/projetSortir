@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route(name="home", path="", methods={"GET"})
+     * @Route(name="home", path="/", methods={"GET"})
      */
     public function home()
     {
