@@ -59,7 +59,7 @@ class UserFixtures extends Fixture
                 ->setAdministrateur(0)
                 ->setActif(1)
                 ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
-                ->setEmail("utilisateur@defaut.com")
+                ->setEmail("utilisateur".$i."@defaut.com")
                 ->setSiteRattachement($site)
                 ->setRoles(["ROLE_USER"]);
 

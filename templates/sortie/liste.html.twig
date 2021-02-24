@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row col-6">
+        Filtrer par site {{ form(formSearchSite) }}
+    </div>
+    <br>
+    <div class="row">
+        {% for sortie in sorties %}
+            <div class="container col-4">
+                <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                    <div class="card-header">Lieu: {{ sortie.lieu.nom }}</div>
+                    <div class="card-header">Organisateur: {{ sortie.organisateur.nom }}</div>
+                    <div class="card-body">
+                        <h4 class="card-title">Nom: {{ sortie.nom }}</h4>
+                        <p class="card-text">dateHeureDebut :{{ sortie.dateHeureDebut|date("m/d/Y") }}</p>
+                        <p class="card-text">duree :{{ sortie.duree }}</p>
+                        <p class="card-text">dateLimiteInscription :{{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>
+                        <p class="card-text">nbInscriptionsMax :{{ sortie.nbInscriptionsMax }}</p>
+                        <p class="card-text">infosSortie :{{ sortie.infosSortie }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

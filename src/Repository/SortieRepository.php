@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Lieu;
+use App\Entity\Site;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +22,16 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function findBySite(EntityManagerInterface $em, Site $site){
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.siteOrganisateur = :site')
+            ->setParameter('site', $site)
+            ->orderBy('s.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
