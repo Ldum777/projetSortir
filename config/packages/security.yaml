@@ -20,12 +20,10 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
-    #ligne ajoutée
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800
                 path: /
-    #fin ligne ajoutée
 
             logout:
                 path: app_logout
