@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nouvelle sortie{% endblock %}
+
+
+{% block body %}
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Créer une nouvelle sortie</h1>
+
+
+    </div>
+
+
+    {{ form_start(formSortie) }}
+
+
+    <div class="form-group">
+
+        {{ form_label(formSortie.nom) }}
+        <span style="color:red;">{{ form_errors(formSortie.nom)}}
+            {{ form_widget(formSortie.nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(formSortie.dateHeureDebut) }}
+        <span style="color:red;">{{ form_errors(formSortie.dateHeureDebut)}}
+            {{ form_widget(formSortie.dateHeureDebut, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(formSortie.duree) }}
+        <span style="color:red;">{{ form_errors(formSortie.duree)}}
+            {{ form_widget(formSortie.duree, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(formSortie.dateLimiteInscription) }}
+        <span style="color:red;">{{ form_errors(formSortie.dateLimiteInscription)}}
+            {{ form_widget(formSortie.dateLimiteInscription, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(formSortie.nbInscriptionsMax) }}
+        <span style="color:red;">{{ form_errors(formSortie.nbInscriptionsMax) }}
+            {{ form_widget(formSortie.nbInscriptionsMax, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(formSortie.infosSortie) }}
+        <span style="color:red;">{{ form_errors(formSortie.infosSortie)}}
+            {{ form_widget(formSortie.infosSortie, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(formSortie.lieu) }}
+        <span style="color:red;">{{ form_errors(formSortie.lieu)}}
+            {{ form_widget(formSortie.lieu, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+
+
+    {{ form_widget(formSortie.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+
+    {{ form_end(formSortie) }}
+
+{% endblock %}
