@@ -4,7 +4,7 @@
 
 
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Acceuil{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -16,6 +16,8 @@
     <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <img src="https://www.eni-ecole.fr/Content/Images/Static/logo-eni.png"  width="50"
+                 height="50">
             <a class="navbar-brand" href="#">Sortir.com</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -31,8 +33,9 @@
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
+
                     {% if app.user is null %}
-                    <li class="nav-item">
+                    <li class="nav-item ml-auto ">
                         <a class="nav-link" href="{{ url('app_register') }}">S'inscrire</a>
                     </li>
                     <li class="nav-item">
@@ -42,17 +45,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
                     </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('app_profile') }}">Mon profil</a>
+                        </li>
                     {% endif %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Lorem Ipsum</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </li>
+
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search">
