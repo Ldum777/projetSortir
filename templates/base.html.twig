@@ -59,21 +59,25 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
-                        </li>
+                    </ul>
+                    <div  align="right">
+                    <ul class="navbar-nav mr-auto">
+
                         <li class="nav-item ">
                             <a class="nav-link" href="{{ url('profile_display') }}">Mon profil</a>
                         </li>
-                    <li class="nav-item ">
-                    </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
+                        </li>
+                    </ul>
+                    </div>
                     {% endif %}
 
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
+
+{#                <form class="form-inline my-2 my-lg-0">#}
+{#                    <input class="form-control mr-sm-2" type="text" placeholder="Search">#}
+{#                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>#}
+{#                </form>#}
             </div>
         </nav>
 
