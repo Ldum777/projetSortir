@@ -22,7 +22,7 @@ Liste des sorties
                         <p class="card-text">Info sortie{{ sortie.infosSortie }}</p>
                         <p class="card-text">Temps estimé : {{ sortie.duree }}</p>
                         <p class="card-text">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>
-                        <button type="button" class="btn btn-primary">Inscription</button>
+                        <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Inscription</button></a>
 
                     </div>
                 </div>

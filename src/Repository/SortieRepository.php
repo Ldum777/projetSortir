@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,6 +32,41 @@ class SortieRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+    }
+
+    public function findBySortieUser(EntityManagerInterface $em, $sortie, $userId){
+        return $this->createQueryBuilder('s')
+//            ->Where('sortie.id = :$sortieId')
+
+                //On cherche si l'utilisateur est membre des participants
+                //On pourrait aussi utiliser NOT MEMBER OF
+                //les WHERE écrase les restrictions précédentes, alors que le andWhere
+                //ajotue une condition
+                //Il existe aussi le orWhere
+
+            ->andWhere(':user MEMBER OF s.listeParticipants')
+            ->setParameter('user', $userId)
+//            ->orderBy('s.$userId', 'ASC')
+//            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+
+//        SELECT *
+//        FROM table1
+//INNER JOIN table2
+//WHERE table1.id = table2.fk_id
+//        ->select('u.id', 'u.name', 'p.number')
+//            ->from('users', 'u')
+//            ->innerJoin('u', 'phonenumbers', 'p', 'u.id = p.user_id')
+//
+//            ->select('COUNT(gu.group) teamLength', 'g.departure departure')
+//            ->innerJoin('AppBundle:GroupUser', 'gu', Join::WITH, 'g.id = gu.group')
+//            ->andWhere('g.itinerary = :itineraryId')
+//            ->setParameter('itineraryId', $itinerary->getId())
+//            ->andWhere('g.departure BETWEEN :firstDate AND :lastDate')
+//            ->setParameter('firstDate', $firstDate->format('Y-m-d'))
+//            ->setParameter('lastDate', $lastDate->format('Y-m-d'));
     }
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
