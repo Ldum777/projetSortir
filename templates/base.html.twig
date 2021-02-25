@@ -16,8 +16,8 @@
     <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <img src="https://www.eni-ecole.fr/Content/Images/Static/logo-eni.png"  width="50"
-                 height="50">
+            <img class="logoAccueil" src="{{ asset('build/images/imageIcon.png') }}" alt="ACME logo" width="50"
+                 height="50" style="margin-right: 10px">
             <a class="navbar-brand" href="{{ url('home_home') }}">Sortir.com</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,21 +59,25 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
-                        </li>
+                    </ul>
+                    <div  align="right">
+                    <ul class="navbar-nav mr-auto">
+
                         <li class="nav-item ">
                             <a class="nav-link" href="{{ url('profile_display') }}">Mon profil</a>
                         </li>
-                    <li class="nav-item ">
-                    </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
+                        </li>
+                    </ul>
+                    </div>
                     {% endif %}
 
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
+
+{#                <form class="form-inline my-2 my-lg-0">#}
+{#                    <input class="form-control mr-sm-2" type="text" placeholder="Search">#}
+{#                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>#}
+{#                </form>#}
             </div>
         </nav>
 
