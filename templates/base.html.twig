@@ -32,11 +32,15 @@
 
 
                     </li>
+                    {% if is_granted('ROLE_ADMIN') == true %}
+
+                            <li class="nav-item ml-auto ">
+                                <a class="nav-link" href="{{ url('app_register') }}">Inscrire un participant</a>
+                            </li>
+
+                    {% endif %}
 
                     {% if app.user is null %}
-                    <li class="nav-item ml-auto ">
-                        <a class="nav-link" href="{{ url('app_register') }}">Inscrire un participant</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('app_login') }}">Se connecter</a>
                     </li>
@@ -48,6 +52,10 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="{{ url('sortie_liste') }}">Liste des sorties
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('sortie_mes_sorties') }}">Mes sorties
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -70,7 +78,11 @@
         </nav>
 
     </header>
-
+    {% if app.user %}
+        <div class="mb-3">
+            Bienvenue {{ app.user.username }}.
+        </div>
+    {% endif %}
     {% block top  %}
 
     {% endblock %}

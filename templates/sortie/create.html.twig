@@ -4,7 +4,15 @@
 
 
 {% block body %}
-
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <h3 class="alert-{{ label }} ">
+                {{ message }}
+            </h3>
+        {% endfor %}
+    {% endfor %}
+    </div>
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Créer une nouvelle sortie</h1>
 

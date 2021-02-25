@@ -14,11 +14,6 @@
         <div class="alert alert-danger">{{ ('Email ou mot de passe invalide') }}</div>
     {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
     <div class="container align-items-center col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <h1 class="h3 mb-3 font-weight-normal pb-5" style="text-align: center" >Please sign in</h1>
     <label for="inputEmail">Adresse mail</label>

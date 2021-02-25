@@ -26,7 +26,7 @@ class SortieController extends AbstractController
     public function sortie_liste(Request $request, EntityManagerInterface $manager)
     {
         //ENLEVER LES CROCHETS
-        $sorties[]= $manager->getRepository('App:Sortie')->findAll();
+        $sorties= $manager->getRepository('App:Sortie')->findAll();
         //CHANGER la fonction findAll, elle retour un tableau de tableaux
 
         //Chargement des catégories
@@ -34,13 +34,27 @@ class SortieController extends AbstractController
         $formSearchSite->handleRequest($request);
 
         if($formSearchSite->isSubmitted() && $formSearchSite->isValid()){
+            //Préparation du filtre pour ne pas afficher le bouton Inscription pour les sorties auxquelles on est déjà isncrit
+            $utilisateurEnCours = $this->getUser();
+            $sortieUser=$manager->getRepository(Sortie::class)->
+            findBySortieUser($manager, $sorties, $utilisateurEnCours->getId());
+
             $site = $formSearchSite->get('site')->getData();
-            $sortiesSite[]=$manager->getRepository(Sortie::class)->findBySite($manager, $site);
-            return $this->render('sortie/liste.html.twig', ['sorties'=>$sortiesSite[0], 'formSearchSite'=>$formSearchSite->createView()]);
+            $sortiesSite=$manager->getRepository(Sortie::class)->findBySite($manager, $site);
+            return $this->render('sortie/liste.html.twig', ['sorties'=>$sortiesSite, 'mesSorties' => $sortieUser, 'formSearchSite'=>$formSearchSite->createView()]);
         }
+
+        //Préparation du filtre pour ne pas afficher le bouton Inscription pour les sorties auxquelles on est déjà isncrit
+        $utilisateurEnCours = $this->getUser();
+        $sortieUser=$manager->getRepository(Sortie::class)->
+        findBySortieUser($manager, $sorties, $utilisateurEnCours->getId());
+
 //        $lieu = $manager->getRepository('App:Lieu')->find(2);
 
-        return $this->render('sortie/liste.html.twig', ['sorties'=>$sorties[0], 'formSearchSite'=>$formSearchSite->createView()]);
+        return $this->render('sortie/liste.html.twig',
+            ['sorties'=>$sorties,
+                'mesSorties' => $sortieUser,
+                'formSearchSite'=>$formSearchSite->createView()]);
     }
 
     /**
@@ -65,7 +79,6 @@ class SortieController extends AbstractController
             $sortie->setSiteOrganisateur(
                 $utilisateurEnCours->getSiteRattachement()
 
-                $utilisateurEnCours->getSiteRattachement()
             );
             $sortie->setEtat(
                 $this->getDoctrine()->getRepository(Etat::class)->find(1)
@@ -74,7 +87,7 @@ class SortieController extends AbstractController
             //FIN de travaux
             $entityManager->persist($formSortie->getData());
             $entityManager->flush();
-            $this->addFlash("succes", "Sortie crée !");
+            $this->addFlash("success", "Sortie créée !");
             return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
         }
 
@@ -94,7 +107,7 @@ class SortieController extends AbstractController
 
         $entityManager->persist($utilisateurEnCours);
         $entityManager->flush();
-
+        $this->addFlash("success","Inscription réussie ! ");
 
         return $this->redirectToRoute('sortie_mes_sorties');
     }
@@ -105,35 +118,10 @@ class SortieController extends AbstractController
     public function mes_sorties(EntityManagerInterface $entityManager, Request $request)
     {
         $sorties= $entityManager->getRepository('App:Sortie')->findAll();
-        //CHANGER la fonction findAll, elle retour un tableau de tableaux
         $utilisateurEnCours = $this->getUser();
-
-        //$sortieUser = $entityManager->getRepository(Sortie::class)->
         $sortieUser=$entityManager->getRepository(Sortie::class)->
         findBySortieUser($entityManager, $sorties, $utilisateurEnCours->getId());
 
-        dd($sortieUser);
-        //Restriction aux sorties concernant notre utilisateur en cours
-        foreach ($sorties as $sortie){
-            dump($sortie[1]);
-//            if($sortie[0] ==1 ){
-//                dump('ici');
-//            }
-
-        }
-        exit();
-
-        //Chargement des catégories
-        $formSearchSite = $this->createForm(SearchSiteType::class);
-        $formSearchSite->handleRequest($request);
-
-        if ($formSearchSite->isSubmitted() && $formSearchSite->isValid()) {
-            $site = $formSearchSite->get('site')->getData();
-            $sortiesSite[] = $entityManager->getRepository(Sortie::class)->findBySite($entityManager, $site);
-            return $this->render('sortie/liste.html.twig', ['sorties' => $sortiesSite[0], 'formSearchSite' => $formSearchSite->createView()]);
-        }
-        //        $lieu = $manager->getRepository('App:Lieu')->find(2);
-
-        return $this->render('sortie/liste.html.twig', ['sorties' => $sorties[0], 'formSearchSite' => $formSearchSite->createView()]);
+        return $this->render('sortie/maliste.html.twig', ['mesSorties' => $sortieUser]);
     }
 }
