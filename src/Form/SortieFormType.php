@@ -58,7 +58,7 @@ class SortieFormType extends AbstractType
         ]);
 
         $builder->add('lieu',  EntityType::class, [
-            'choice_label'=> "nom",
+            'choice_label'=> "Lieu",
             'class' => Lieu::class,
             'label' => 'lieu:',
             'required' => false,

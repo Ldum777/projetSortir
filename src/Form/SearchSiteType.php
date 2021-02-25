@@ -18,13 +18,13 @@ class SearchSiteType extends AbstractType
         $builder
             ->add('site', EntityType::class, [
             'class'=>Site::class,
-            'placeholder'=>'Veuillez entrer un site',
+//            'placeholder'=>'Veuillez entrer un site',
             'query_builder'=>function (EntityRepository $entityRepository){
                 return $entityRepository->createQueryBuilder('site')->orderBy
                 ('site.id','ASC');
             },
             'choice_label' =>'nom',
-            'label'=> 'Nom',
+            'label'=> ' ',
             'required'=> false,
             'constraints'=>[
                 new NotBlank(['message'=>('Vous devez sélectionner un site.')])
