@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <img src="https://www.eni-ecole.fr/Content/Images/Static/logo-eni.png"  width="50"
                  height="50">
-            <a class="navbar-brand" href="#">Sortir.com</a>
+            <a class="navbar-brand" href="{{ url('home_home') }}">Sortir.com</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,12 +29,8 @@
                         <a class="nav-link" href="{{ url('home_home') }}">Accueil
                             <span class="sr-only">(current)</span>
                         </a>
-                        <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
-                            <span class="sr-only">(current)</span>
-                        </a>
-                        <a class="nav-link" href="{{ url('sortie_liste') }}">Liste des sorties
-                            <span class="sr-only">(current)</span>
-                        </a>
+
+
                     </li>
 
                     {% if app.user is null %}
@@ -45,16 +41,23 @@
                         <a class="nav-link" href="{{ url('app_login') }}">Se connecter</a>
                     </li>
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
-                    </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ url('app_profile') }}">Mon profil</a>
+                            <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('sortie_liste') }}">Liste des sorties
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('profile_display') }}">Mon profil</a>
                         </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
-                            <span class="sr-only">(current)</span>
-                        </a>
                     </li>
                     {% endif %}
 

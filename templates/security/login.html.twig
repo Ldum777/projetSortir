@@ -2,10 +2,16 @@
 
 {% block title %}Connexion{% endblock %}
 
+
+
 {% block body %}
+
+    <div class="row col-12 pt-5">
+        <div class="container align-items-center col-10 col-sm-8 col-md-6 col-lg-6 col-xl-3">
+
 <form method="post">
     {% if error %}
-        <div class="alert alert-danger">{{ ('Email ou mot de passe invalide.') }}</div>
+        <div class="alert alert-danger">{{ ('Email ou mot de passe invalide') }}</div>
     {% endif %}
 
     {% if app.user %}
@@ -13,22 +19,28 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <div class="container align-items-center col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <h1 class="h3 mb-3 font-weight-normal pb-5" style="text-align: center" >Please sign in</h1>
     <label for="inputEmail">Adresse mail</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
+    <div class="col-12 pt-2 mt-5" style="text-align: center">
     <input type="checkbox" id="remember_me" name="_remember_me" checked/>
     <label for="remember_me">Se souvenir de moi</label>
+    </div>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-
-    <button class="btn btn-lg btn-primary" type="submit">
+    <div class="container align-items-center col-8 col-sm-8 col-md-10 col-lg-8 col-xl-10">
+    <button class="container align-items-center btn btn-lg btn-primary " type="submit">
         Se connecter
     </button>
+    </div>
 </form>
+
+
+
+
+
 {% endblock %}

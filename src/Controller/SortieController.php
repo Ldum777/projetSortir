@@ -52,14 +52,19 @@ class SortieController extends AbstractController
         $formSortie = $this->createForm(SortieFormType::class, $sortie);
         $formSortie->handleRequest($request);
 
-        $utilisateurEnCours = new User();
+
+        /**
+         * @var User
+         */
         $utilisateurEnCours= $this->getUser();
-        $utilisateurEnCours=$entityManager->getRepository(User::class)->find($this->getUser()->getId());
+       // $utilisateurEnCours=$entityManager->getRepository(User::class)->find($this->getUser()->getId());
 //        dump($utilisateurEnCours);exit();
         if ($formSortie -> isSubmitted()) {
 // Partie en travaux
             $sortie->setOrganisateur($utilisateurEnCours);
             $sortie->setSiteOrganisateur(
+                $utilisateurEnCours->getSiteRattachement()
+
                 $utilisateurEnCours->getSiteRattachement()
             );
             $sortie->setEtat(
