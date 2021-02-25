@@ -39,7 +39,7 @@
 
                     {% if app.user is null %}
                     <li class="nav-item ml-auto ">
-                        <a class="nav-link" href="{{ url('app_register') }}">S'inscrire</a>
+                        <a class="nav-link" href="{{ url('app_register') }}">Inscrire un participant</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('app_login') }}">Se connecter</a>
@@ -51,6 +51,11 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="{{ url('app_profile') }}">Mon profil</a>
                         </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
                     {% endif %}
 
                 </ul>
