@@ -99,17 +99,6 @@ class User implements UserInterface
 
     private $plainPassword;
 
-    /**
-     * @return mixed
-     * * @Assert\NotBlank(message="Ce champ est requis")
-     *
-     * * @Assert\Length(
-     *      min = 8,
-     *      max = 50,
-     *      minMessage = "Veuillez saisir un mot de passe d'au moins 8 Caractères",
-     *      maxMessage = "Veuillez saisir un mot de passe de maximum 50 Caractères"
-     * )
-     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
