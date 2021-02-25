@@ -1,83 +1,86 @@
-    <!DOCTYPE html>
-    <html lang="fr">
-        <head>
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
 
 
-            <meta charset="UTF-8">
-            <title>{% block title %}Accueil{% endblock %}</title>
-            {# Run `composer require symfony/webpack-encore-bundle`
-               and uncomment the following Encore helpers to start using Symfony UX #}
-            {% block stylesheets %}
-                <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
-            {% endblock %}
+        <meta charset="UTF-8">
+        <title>{% block title %}Accueil{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://bootswatch.com/4/cerulean/bootstrap.min.css">
+        {% endblock %}
 
 
-        </head>
-        <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <img src="https://www.eni-ecole.fr/Content/Images/Static/logo-eni.png"  width="50"
-                     height="50">
-                <a class="navbar-brand" href="#">Sortir.com</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    </head>
+    <body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <img src="https://www.eni-ecole.fr/Content/Images/Static/logo-eni.png"  width="50"
+                 height="50">
+            <a class="navbar-brand" href="{{ url('home_home') }}">Sortir.com</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active" >
-                            <a class="nav-link" href="{{ url('home_home') }}">Accueil
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active" >
+                        <a class="nav-link" href="{{ url('home_home') }}">Accueil
+                            <span class="sr-only">(current)</span>
+                        </a>
+                        <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
+                            <span class="sr-only">(current)</span>
+                        </a>
+                        <a class="nav-link" href="{{ url('sortie_liste') }}">Liste des sorties
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
 
-                        {% if app.user is null %}
-                        <li class="nav-item ml-auto ">
-                            <a class="nav-link" href="{{ url('app_register') }}">Inscrire un participant</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('app_login') }}">Se connecter</a>
-                        </li>
-                        {% else %}
-                            <li class="nav-item ">
-                                <a class="nav-link" href="{{ url('app_profile') }}">Mon profil</a>
-                            </li>
+                    {% if app.user is null %}
+                    <li class="nav-item ml-auto ">
+                        <a class="nav-link" href="{{ url('app_register') }}">Inscrire un participant</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('app_login') }}">Se connecter</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
+                    </li>
                         <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('profile_display') }}">Mon profil</a>
                             <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                            <li class="nav-item ">
-                            <a class="nav-link" href="{{ url('sortie_liste') }}">Liste des sorties
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
-                            </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    {% endif %}
 
-                        {% endif %}
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
 
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-            </nav>
+    </header>
 
-        </header>
+    {% block top  %}
 
-        {% block top  %}
+    {% endblock %}
 
-        {% endblock %}
+        {% block body %}
 
-            {% block body %}
+        {%endblock %}
 
-            {%endblock %}
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        </body>
-    </html>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
