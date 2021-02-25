@@ -2,26 +2,31 @@
 
 {% block body %}
 
-    <div class="row col-6">
-        Filtrer par site {{ form(formSearchSite) }}
+    <div class="text-center">
+       Filtrer par site :  <h6 Filtrer par site {{ form(formSearchSite) }}</h6>
     </div>
     <br>
     <div class="row">
         {% for sortie in sorties %}
-            <div class="container col-4">
-                <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
-                    <div class="card-header">Lieu: {{ sortie.lieu.nom }}</div>
-                    <div class="card-header">Organisateur: {{ sortie.organisateur.nom }}</div>
+            <div class="container col-md-4 col-sm-6 centre">
+                <div class="card text-white bg-dark  text-center" style="max-width: 18rem;">
+                    <h3 class="card-header text-light bg-dark"> {{ sortie.lieu.nom }}</h3>
+                        <img src="https://saviezvous.fr/wp-content/uploads/2020/04/point-d-interrogation.jpg">
+                    <div class="card-header">{{ sortie.organisateur.nom }}</div>
                     <div class="card-body">
-                        <h4 class="card-title">Nom: {{ sortie.nom }}</h4>
-                        <p class="card-text">dateHeureDebut :{{ sortie.dateHeureDebut|date("m/d/Y") }}</p>
-                        <p class="card-text">duree :{{ sortie.duree }}</p>
-                        <p class="card-text">dateLimiteInscription :{{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>
-                        <p class="card-text">nbInscriptionsMax :{{ sortie.nbInscriptionsMax }}</p>
-                        <p class="card-text">infosSortie :{{ sortie.infosSortie }}</p>
+                        <h4 class="card-title">{{ sortie.nom }}</h4>
+                        <p class="card-text">Date de début : {{ sortie.dateHeureDebut|date("m/d/Y") }}</p>
+                        <p class="card-text">Date limite inscription : {{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>
+                        <p class="card-text">Info sortie{{ sortie.infosSortie }}</p>
+                        <p class="card-text">Temps estimé : {{ sortie.duree }}</p>
+                        <p class="card-text">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>
+                        <button type="button" class="btn btn-primary">Inscription</button>
+
                     </div>
                 </div>
+                <hr>
             </div>
+
         {% endfor %}
     </div>
 {% endblock %}
