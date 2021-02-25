@@ -29,12 +29,8 @@
                         <a class="nav-link" href="{{ url('home_home') }}">Accueil
                             <span class="sr-only">(current)</span>
                         </a>
-                        <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
-                            <span class="sr-only">(current)</span>
-                        </a>
-                        <a class="nav-link" href="{{ url('sortie_liste') }}">Liste des sorties
-                            <span class="sr-only">(current)</span>
-                        </a>
+
+
                     </li>
 
                     {% if app.user is null %}
@@ -45,19 +41,23 @@
                         <a class="nav-link" href="{{ url('app_login') }}">Se connecter</a>
                     </li>
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
-                    </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ url('profile_display') }}">Mon profil</a>
                             <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('sortie_liste') }}">Liste des sorties
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('app_logout') }}">Se déconnecter</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{ url('profile_display') }}">Mon profil</a>
+                        </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{ url('sortie_create') }}">Créer une Sortie
-                            <span class="sr-only">(current)</span>
-                        </a>
                     </li>
                     {% endif %}
 

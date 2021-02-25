@@ -23,72 +23,11 @@
                 <div class="card mt-3">
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-            {% form_theme formEdit 'bootstrap_4_layout.html.twig' %}
-            {{ form(formEdit) }}
-
-            <div class="col-md-12 d-flex flex-column  text-center">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h6 class="mb-0">Nom</h6>
-                                <div class="form-group">
-                                    {{ app.user.nom }}
-                                </div>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h6 class="mb-0">Prénom</h6>
-                                <div class="form-group">
-                                    {{ app.user.prenom }}
-                                </div>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h6 class="mb-0">Email</h6>
-                                <div class="form-group">
-                                    {{ app.user.email }}
-                                </div>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h6 class="mb-0">Téléphone</h6>
-                                <div class="form-group">
-                                    {{ app.user.telephone }}
-                                </div>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h6 class="mb-0">Site de rattachement</h6>
-                                <div class="form-group">
-                                    {{ app.user.siteRattachement.nom }}
-                                </div>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-
-                            </div>
-                        </div>
-
-
+            {% form_theme  formEdit 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(formEdit)}}
+            {{ form_end(formEdit)}}
                         {% endblock %}
