@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Liste des users
+{% endblock %}
+{% block body %}
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Liste des users</h1>
+
+
+{#    </div>#}
+{#    <div class="text-center">#}
+{#       <h6> Filtrer par site {{ form(formSearchSite) }}</h6>#}
+{#    </div>#}
+    <br>
+    <div class="container">
+{#    <div class="row align-items-center">#}
+        {% for user in users %}
+            {{ user.nom }}
+            <div class="container col-6 col-sm-4 col-md-3">
+                <div class="card text-white bg-dark  text-center" style="max-width: 18rem;">
+                    <h3 class="card-header text-light bg-dark"> {{ user.nom }}{{ user.prenom }}</h3>
+{#                        <img src="https://saviezvous.fr/wp-content/uploads/2020/04/point-d-interrogation.jpg">#}
+                    <div class="card-header">{{ user.siteRattachement.nom}}</div>
+{#                    <div class="card-body">#}
+{#                        <h4 class="card-title">{{ sortie.nom }}</h4>#}
+{#                        <p class="card-text">Date de début : {{ sortie.dateHeureDebut|date("m/d/Y") }}</p>#}
+{#                        <p class="card-text">Date limite inscription : {{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>#}
+{#                        <p class="card-text">Info sortie{{ sortie.infosSortie }}</p>#}
+{#                        <p class="card-text">Temps estimé : {{ sortie.duree }}</p>#}
+{#                        <p class="card-text">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>#}
+
+
+{#                        #}{#Affichage du bouton Inscription#}
+
+{#                        Initialisation des booléens #}
+{#                        {% set afficherBouton = true %}#}
+{#                        {% set cloture = false %}#}
+{#                        {% set tropDePersonnes = false %}#}
+{#                        {% set dejaInscrit = false %}#}
+{#                        Contrôle nombre de participants#}
+{#                        {% if  sortie.NbInscriptionsMax <=0 %}#}
+{#                            {% set afficherBouton = false %}#}
+{#                            {% set tropDePersonnes = true %}#}
+{#                        {% endif %}#}
+
+{#                        Contrôle sur la date/#}
+{#                        {% set dateT = "now"|date("m/d/Y") %}#}
+{#                        {% if  sortie.dateLimiteInscription|date("m/d/Y") < dateT %}#}
+{#                            {% set afficherBouton = false %}#}
+{#                            {% set cloture = true %}#}
+{#                        {% endif %}#}
+
+{#                        Contrôle si je participe déjà#}
+{#                        {% for maSortie in mesSorties %}#}
+{#                            {% if  maSortie.id==sortie.id%}#}
+{#                                {% set afficherBouton = false %}#}
+{#                                {% set dejaInscrit = true %}#}
+{#                            {% endif %}#}
+{#                        {% endfor %}#}
+
+{#                        {% if  afficherBouton == true%}#}
+{#                        <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">S'inscrire</button></a>#}
+{#                        {% elseif cloture %}#}
+{#                            {% if dejaInscrit %}#}
+{#                                <button type="button" class="btn btn-success">Déjà inscrit</button>#}
+{#                            {% else %}#}
+{#                            <button type="button" class="btn btn-danger">Inscription cloturée</button>#}
+{#                            {% endif %}#}
+{#                        {% elseif dejaInscrit %}#}
+{#                            <button type="button" class="btn btn-warning">Se désister</button>#}
+{#                        {% elseif tropDePersonnes %}#}
+{#                            <button type="button" class="btn btn-warning">Sortie actuellement complète</button>#}
+{#                        {% endif %}#}
+
+{#                    </div>#}
+{#                </div>#}
+{#                <hr>#}
+{#            </div>#}
+
+        {% endfor %}
+    </div>
+    </div>
+{% endblock %}

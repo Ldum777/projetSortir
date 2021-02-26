@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Sortie;
 use App\Entity\User;
+use App\Form\SearchSiteType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,4 +63,35 @@ class ProfileController extends AbstractController
         return $this->render('profile/details.html.twig', ['user' => $user]);
     }
 
+    /**
+     * @Route(name="liste", path="/liste", methods={"GET", "POST"})
+     */
+    public function user_liste(Request $request, EntityManagerInterface $manager)
+    {
+        $users= $manager->getRepository('App:User')->findAll();
+
+        //Chargement des catégories
+//        $formSearchSite = $this->createForm(SearchSiteType::class);
+//        $formSearchSite->handleRequest($request);
+//
+//        if($formSearchSite->isSubmitted() && $formSearchSite->isValid()){
+//            //Préparation du filtre pour ne pas afficher le bouton Inscription pour les sorties auxquelles on est déjà isncrit
+//            $utilisateurEnCours = $this->getUser();
+//            $sortieUser=$manager->getRepository(Sortie::class)->
+//            findBySortieUser($manager, $sorties, $utilisateurEnCours->getId());
+//
+//            $site = $formSearchSite->get('site')->getData();
+//            $sortiesSite=$manager->getRepository(Sortie::class)->findBySite($manager, $site);
+//            return $this->render('sortie/liste.html.twig', ['sorties'=>$sortiesSite, 'mesSorties' => $sortieUser, 'formSearchSite'=>$formSearchSite->createView()]);
+//        }
+//
+//        //Préparation du filtre pour ne pas afficher le bouton Inscription pour les sorties auxquelles on est déjà isncrit
+//        $utilisateurEnCours = $this->getUser();
+//
+//        $sortieUser=$manager->getRepository(Sortie::class)->
+//        findBySortieUser($manager, $sorties, $utilisateurEnCours->getId());
+
+        return $this->render('sortie/listeUser.html.twig',
+            ['users'=>$users]);
+    }
 }
