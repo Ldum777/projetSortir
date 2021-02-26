@@ -84,7 +84,7 @@
     </header>
     {% if app.user %}
         <div class="mb-3">
-            Bienvenue {{ app.user.username }}.
+                {{ app.user.username }} est connecté.
         </div>
     {% endif %}
     {% block top  %}

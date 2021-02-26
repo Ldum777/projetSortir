@@ -56,34 +56,43 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nom', TextType::class, [
-            'label'=> 'Nom',
             'trim'=> true,
             'required' => true,
-
+            'attr' => [
+                'class'=> 'form-control'
+            ]
         ]);
+
         $builder->add('prenom', TextType::class, [
-            'label'=> 'Prénom',
             'trim'=> true,
             'required' => true,
-
+            'attr' => [
+                'class'=> 'form-control'
+            ]
         ]);
+
         $builder->add('telephone', TextType::class, [
-            'label'=> 'telephone (optionnel)',
             'trim'=> true,
-            'required' => false,
-
+            'required' => true,
+            'attr' => [
+                'class'=> 'form-control'
+            ]
         ]);
+
         $builder->add('email', EmailType::class, [
-            'label'=> 'Adresse Email',
             'trim'=> true,
-            'required' => false,
-
+            'required' => true,
+            'attr' => [
+                'class'=> 'form-control'
+            ]
         ]);
-        $builder->add('password', PasswordType::class, [
-            'label'=> 'Mot de passe',
-            'trim'=> true,
-            'required' => false,
 
+        $builder->add('password', PasswordType::class, [
+            'trim'=> true,
+            'required' => true,
+            'attr' => [
+                'class'=> 'form-control'
+            ]
         ]);
 //        $builder->add('admin', IntegerType::class, [
 //            'label'=> 'Admin',
