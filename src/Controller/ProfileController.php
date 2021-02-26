@@ -50,4 +50,15 @@ class ProfileController extends AbstractController
         return $this->render('profile/edit.html.twig', ['formEdit' => $form->createView()]);
     }
 
+    /**
+     * @Route("/details", name="details", methods={"GET"})
+     */
+    public function details(Request $request, EntityManagerInterface $entityManager)
+    {
+        $id = $request->get('id');
+        $user = $entityManager->getRepository('App:User')->getById($id);
+
+        return $this->render('profile/details.html.twig', ['user' => $user]);
+    }
+
 }
