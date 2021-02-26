@@ -25,9 +25,7 @@ class SortieController extends AbstractController
      */
     public function sortie_liste(Request $request, EntityManagerInterface $manager)
     {
-        //ENLEVER LES CROCHETS
         $sorties= $manager->getRepository('App:Sortie')->findAll();
-        //CHANGER la fonction findAll, elle retour un tableau de tableaux
 
         //Chargement des catégories
         $formSearchSite = $this->createForm(SearchSiteType::class);
@@ -46,10 +44,9 @@ class SortieController extends AbstractController
 
         //Préparation du filtre pour ne pas afficher le bouton Inscription pour les sorties auxquelles on est déjà isncrit
         $utilisateurEnCours = $this->getUser();
+
         $sortieUser=$manager->getRepository(Sortie::class)->
         findBySortieUser($manager, $sorties, $utilisateurEnCours->getId());
-
-//        $lieu = $manager->getRepository('App:Lieu')->find(2);
 
         return $this->render('sortie/liste.html.twig',
             ['sorties'=>$sorties,
@@ -71,20 +68,12 @@ class SortieController extends AbstractController
          * @var User
          */
         $utilisateurEnCours= $this->getUser();
-       // $utilisateurEnCours=$entityManager->getRepository(User::class)->find($this->getUser()->getId());
-//        dump($utilisateurEnCours);exit();
         if ($formSortie -> isSubmitted()) {
-// Partie en travaux
             $sortie->setOrganisateur($utilisateurEnCours);
-            $sortie->setSiteOrganisateur(
-                $utilisateurEnCours->getSiteRattachement()
-
-            );
-            $sortie->setEtat(
-                $this->getDoctrine()->getRepository(Etat::class)->find(1)
-            );
-//            dump($sortie->getOrganisateur());exit();
-            //FIN de travaux
+            $sortie->addListeParticipant($utilisateurEnCours);
+            $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax()-1);
+            $sortie->setSiteOrganisateur($utilisateurEnCours->getSiteRattachement());
+            $sortie->setEtat($this->getDoctrine()->getRepository(Etat::class)->find(1));
             $entityManager->persist($formSortie->getData());
             $entityManager->flush();
             $this->addFlash("success", "Sortie créée !");
@@ -106,6 +95,13 @@ class SortieController extends AbstractController
         $utilisateurEnCours->addSortiesInscrit($sortie);
 
         $entityManager->persist($utilisateurEnCours);
+        $entityManager->flush();
+
+        //Actualisation du nombre de places restantes
+        $placesRestantes= $sortie->getNbInscriptionsMax()-1;
+        $sortie->setNbInscriptionsMax($placesRestantes);
+        $entityManager->persist($sortie);
+
         $entityManager->flush();
         $this->addFlash("success","Inscription réussie ! ");
 
