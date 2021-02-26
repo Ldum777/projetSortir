@@ -88,6 +88,11 @@
         </nav>
 
     </header>
+    {% if app.user %}
+        <div class="mb-3">
+                {{ app.user.username }} est connecté.
+        </div>
+    {% endif %}
     {% block top  %}
 
     {% endblock %}
