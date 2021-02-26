@@ -61,6 +61,12 @@
                         </li>
                     </ul>
                     <div  align="right">
+                        {% if app.user %}
+                            <div class="nav-item " id="navbarColor02" data-target="#navbarColor02"  >
+                                <p style="color:#FFFFFF";> Bienvenue {{ app.user.username }}</p>
+
+                            </div>
+                        {% endif %}
                     <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item ">

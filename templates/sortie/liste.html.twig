@@ -28,15 +28,47 @@ Liste des sorties
                         <p class="card-text">Temps estimé : {{ sortie.duree }}</p>
                         <p class="card-text">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>
 
+
                         {#Affichage du bouton Inscription#}
+
+{#                        Initialisation des booléens #}
                         {% set afficherBouton = true %}
+                        {% set cloture = false %}
+                        {% set tropDePersonnes = false %}
+                        {% set dejaInscrit = false %}
+{#                        Contrôle nombre de participants#}
+                        {% if  sortie.NbInscriptionsMax <=0 %}
+                            {% set afficherBouton = false %}
+                            {% set tropDePersonnes = true %}
+                        {% endif %}
+
+{#                        Contrôle sur la date/#}
+                        {% set dateT = "now"|date("m/d/Y") %}
+                        {% if  sortie.dateLimiteInscription|date("m/d/Y") < dateT %}
+                            {% set afficherBouton = false %}
+                            {% set cloture = true %}
+                        {% endif %}
+
+{#                        Contrôle si je participe déjà#}
                         {% for maSortie in mesSorties %}
                             {% if  maSortie.id==sortie.id%}
                                 {% set afficherBouton = false %}
+                                {% set dejaInscrit = true %}
                             {% endif %}
                         {% endfor %}
+
                         {% if  afficherBouton == true%}
-                        <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Inscription</button></a>
+                        <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">S'inscrire</button></a>
+                        {% elseif cloture %}
+                            {% if dejaInscrit %}
+                                <button type="button" class="btn btn-success">Déjà inscrit</button>
+                            {% else %}
+                            <button type="button" class="btn btn-danger">Inscription cloturée</button>
+                            {% endif %}
+                        {% elseif dejaInscrit %}
+                            <button type="button" class="btn btn-warning">Se désister</button>
+                        {% elseif tropDePersonnes %}
+                            <button type="button" class="btn btn-warning">Sortie actuellement complète</button>
                         {% endif %}
 
                     </div>
