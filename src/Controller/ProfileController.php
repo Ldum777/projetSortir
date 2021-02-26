@@ -30,7 +30,6 @@ class ProfileController extends AbstractController
      */
     public function edit(UserPasswordEncoderInterface $encoder, Request $request, EntityManagerInterface $entityManager){
 
-        $utilisateurEnCours = new User();
         $utilisateurEnCours= $this->getUser();
         $utilisateurEnCours=$entityManager->getRepository(User::class)->find($this->getUser()->getId());
 
@@ -46,7 +45,7 @@ class ProfileController extends AbstractController
             $utilisateurEnCours->setPassword($password);
             $entityManager->flush();
             $this->addFlash('success', 'Votre profil a été modifié avec succès !');
-            return $this->redirectToRoute('profile_edit', ['id' => $utilisateurEnCours->getId()]);
+            return $this->redirectToRoute('profile_display', ['id' => $utilisateurEnCours->getId()]);
         }
         return $this->render('profile/edit.html.twig', ['formEdit' => $form->createView()]);
     }
