@@ -69,19 +69,22 @@ Liste des sorties
                         {% if  afficherBouton == true%}
                         <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">S'inscrire</button></a>
                         {% elseif cloture %}
+{#                            A REVOIR LES CONDITIONS#}
                             {% if dejaInscrit %}
                                 <button type="button" class="btn btn-success">Déjà inscrit</button>
+                                <a  href="{{ url('profile_liste',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Participants</button> </a>
                             {% else %}
                             <button type="button" class="btn btn-danger">Inscription cloturée</button>
                             {% endif %}
                         {% elseif dejaInscrit %}
+
                             {% if organisateur %}
                                 <a href="{{ url('sortie_annuler',{'id': sortie.id})}} )}}">
                                     <button type="button" class="btn btn-danger">Annuler la sortie</button></a>
                             {% else %}
                             <a href="{{ url('sortie_se_desister',{'id': sortie.id})}} )}}"><button type="button" class="btn btn-warning">Se désister</button></a>
                             {% endif %}
-                                <a class="nav-link" href="{{ url('profile_liste') }}"><button type="button" class="btn btn-primary">Participants</button> </a>
+                            <a  href="{{ url('profile_liste',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Participants</button> </a>
                         {% elseif tropDePersonnes %}
                             <button type="button" class="btn btn-warning">Sortie actuellement complète</button>
                         {% endif %}

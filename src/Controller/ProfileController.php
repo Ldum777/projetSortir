@@ -68,8 +68,11 @@ class ProfileController extends AbstractController
      */
     public function user_liste(Request $request, EntityManagerInterface $manager)
     {
-        $users= $manager->getRepository('App:User')->findAll();
+//        $users= $manager->getRepository('App:User')->findAll();
 
+        $sortie = $manager->getRepository(Sortie::class)->find($request->get('id'));
+
+        $users = $sortie->getListeParticipants();
         //Chargement des catégories
 //        $formSearchSite = $this->createForm(SearchSiteType::class);
 //        $formSearchSite->handleRequest($request);
