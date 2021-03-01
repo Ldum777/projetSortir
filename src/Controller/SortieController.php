@@ -38,6 +38,7 @@ class SortieController extends AbstractController
 
             $site = $formSearchSite->get('site')->getData();
             $sortiesSite=$manager->getRepository(Sortie::class)->findBySite($manager, $site);
+
             return $this->render('sortie/liste.html.twig', ['sorties'=>$sortiesSite, 'mesSorties' => $sortieUser, 'formSearchSite'=>$formSearchSite->createView()]);
         }
 
@@ -46,7 +47,8 @@ class SortieController extends AbstractController
 
         $sortieUser=$manager->getRepository(Sortie::class)->
         findBySortieUser($manager, $sorties, $utilisateurEnCours->getId());
-
+        //méthode qui enlève les sorties de plus d'un mois
+        $sorties = $manager->getRepository(Sortie::class)->filtreUnMois($sorties);
         return $this->render('sortie/liste.html.twig',
             ['sorties'=>$sorties,
                 'mesSorties' => $sortieUser,
@@ -113,9 +115,12 @@ class SortieController extends AbstractController
     public function mes_sorties(EntityManagerInterface $entityManager, Request $request)
     {
         $sorties= $entityManager->getRepository('App:Sortie')->findAll();
+
         $utilisateurEnCours = $this->getUser();
         $sortieUser=$entityManager->getRepository(Sortie::class)->
         findBySortieUser($entityManager, $sorties, $utilisateurEnCours->getId());
+        //méthode qui enlève les sorties de plus d'un mois
+        $sortieUser = $entityManager->getRepository(Sortie::class)->filtreUnMois($sortieUser);
 
         return $this->render('sortie/maliste.html.twig', ['mesSorties' => $sortieUser]);
     }
@@ -165,7 +170,7 @@ class SortieController extends AbstractController
         $sortie->removeListeParticipant($utilisateurEnCours);
         $etat = $entityManager->getRepository(Etat::class)->find(6);
         $sortie->setEtat($etat);
-        $entityManager->remove($sortie);
+//        $entityManager->remove($sortie);
 
 
         $entityManager->persist($utilisateurEnCours);

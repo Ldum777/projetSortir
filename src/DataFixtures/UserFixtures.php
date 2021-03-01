@@ -273,7 +273,7 @@ class UserFixtures extends Fixture
             $manager->persist($sortie);
 
         }
-        for ($i=11; $i <= 15; $i++) {
+        for ($i=11; $i <= 13; $i++) {
         $sortie = new Sortie();
         $sortie->setNom("Vamos a la playa N°".$i)
             ->setDateHeureDebut(new \DateTime("now"))
@@ -281,7 +281,7 @@ class UserFixtures extends Fixture
             ->setDateLimiteInscription(new \DateTime("now"))
             ->setNbInscriptionsMax($i-11)
             ->setInfosSortie("on va se promener bande de couillons")
-            ->setEtat($etat3)
+            ->setEtat($etat6)
             ->setLieu($lieu3)
             ->setOrganisateur($userBis)
             ->setSiteOrganisateur($site3)
@@ -289,8 +289,25 @@ class UserFixtures extends Fixture
 
         $manager->persist($sortie);
 
-    }
+        }
 
+        for ($i=14; $i <= 15; $i++) {
+            $sortie = new Sortie();
+            $sortie->setNom("Vamos a la playa N°".$i)
+                ->setDateHeureDebut(new \DateTime('2021-01-14'))
+                ->setDuree(240)
+                ->setDateLimiteInscription(new \DateTime("now"))
+                ->setNbInscriptionsMax($i-11)
+                ->setInfosSortie("on va se promener bande de couillons")
+                ->setEtat($etat6)
+                ->setLieu($lieu3)
+                ->setOrganisateur($userBis)
+                ->setSiteOrganisateur($site3)
+                ->addListeParticipant($userBis);
+
+            $manager->persist($sortie);
+
+        }
 
 
 
