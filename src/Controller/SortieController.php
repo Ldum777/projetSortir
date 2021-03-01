@@ -26,7 +26,6 @@ class SortieController extends AbstractController
     public function sortie_liste(Request $request, EntityManagerInterface $manager)
     {
         $sorties= $manager->getRepository('App:Sortie')->findAll();
-
         //Chargement des catégories
         $formSearchSite = $this->createForm(SearchSiteType::class);
         $formSearchSite->handleRequest($request);
