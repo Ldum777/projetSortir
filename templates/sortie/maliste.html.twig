@@ -25,12 +25,14 @@ Mes sorties
                     <div class="card-header">Organisée par {{ sortie.organisateur.nom }}</div>
                     <div class="card-body">
                         <h4 class="card-title">{{ sortie.nom }}</h4>
+                        <div style= "overflow-x: hidden; overflow-y: scroll; border:#000000 1px solid; width: 220px; height: 150px;">
                         <p class="card-text">Date de début : {{ sortie.dateHeureDebut|date("m/d/Y") }}</p>
                         <p class="card-text">Date limite inscription : {{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>
                         <p class="card-text">Info sortie{{ sortie.infosSortie }}</p>
                         <p class="card-text">Temps estimé : {{ sortie.duree }}</p>
                         <p class="card-text">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>
 
+                        </div>
                         {#Affichage du bouton Inscription#}
 
                         {# Contrôle de l'état de la sortie#}
