@@ -66,10 +66,11 @@ Liste des sorties
                             <button type="button" class="btn btn-danger">Inscription cloturée</button>
                             {% endif %}
                         {% elseif dejaInscrit %}
-                            <button type="button" class="btn btn-warning">Se désister</button>
+                            <a href="{{ url('sortie_se_desister',{'id': sortie.id})}} )}}"><button type="button" class="btn btn-warning">Se désister</button></a>
                         {% elseif tropDePersonnes %}
                             <button type="button" class="btn btn-warning">Sortie actuellement complète</button>
                         {% endif %}
+
 
                     </div>
                 </div>

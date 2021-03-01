@@ -40,6 +40,8 @@ Mes sorties
                         {% endfor %}
                         {% if  afficherBouton == true%}
                             <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Inscription</button></a>
+                            {% else %}
+                                <a href="{{ url('sortie_se_desister',{'id': sortie.id})}} )}}"><button type="button" class="btn btn-warning">Se désister</button></a>
                         {% endif %}
                     </div>
                 </div>

@@ -120,4 +120,35 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/maliste.html.twig', ['mesSorties' => $sortieUser]);
     }
+
+
+    /**
+     * @Route(name="se_desister", path="se_desister", methods={"GET", "POST"})
+     */
+    public function se_desister(Request $request, EntityManagerInterface $entityManager)
+    {
+        $utilisateurEnCours = $this->getUser();
+        $sortie = $entityManager->getRepository(Sortie::class)->find($request->get('id'));
+        $utilisateurEnCours->getSortiesInscrits();
+
+        $utilisateurEnCours->removeSorty($sortie);
+        $sortie->removeListeParticipant($utilisateurEnCours);
+        $entityManager->persist($utilisateurEnCours);
+        $entityManager->persist($sortie);
+
+
+        $entityManager->flush();
+
+
+
+        $placesRestantes= $sortie->getNbInscriptionsMax()+1;
+        $sortie->setNbInscriptionsMax($placesRestantes);
+        $entityManager->persist($sortie);
+
+        $entityManager->flush();
+
+        $this->addFlash("success","Vous avez été retiré de la sortie avec succès !");
+
+        return $this->redirectToRoute('sortie_mes_sorties');
+    }
 }
