@@ -36,6 +36,7 @@ Liste des sorties
                         {% set cloture = false %}
                         {% set tropDePersonnes = false %}
                         {% set dejaInscrit = false %}
+                        {% set organisateur = false %}
 {#                        Contrôle nombre de participants#}
                         {% if  sortie.NbInscriptionsMax <=0 %}
                             {% set afficherBouton = false %}
@@ -57,6 +58,14 @@ Liste des sorties
                             {% endif %}
                         {% endfor %}
 
+                        {# Contrôle si je suis organisateur#}
+                        {% if  sortie.organisateur== app.user%}
+                            {% set organisateur = true %}
+                            {% set dejaInscrit = true %}
+                            {% set afficherBouton = false %}
+                        {% endif %}
+
+
                         {% if  afficherBouton == true%}
                         <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">S'inscrire</button></a>
                         {% elseif cloture %}
@@ -66,7 +75,12 @@ Liste des sorties
                             <button type="button" class="btn btn-danger">Inscription cloturée</button>
                             {% endif %}
                         {% elseif dejaInscrit %}
+                            {% if organisateur %}
+                                <a href="{{ url('sortie_annuler',{'id': sortie.id})}} )}}">
+                                    <button type="button" class="btn btn-danger">Annuler la sortie</button></a>
+                            {% else %}
                             <a href="{{ url('sortie_se_desister',{'id': sortie.id})}} )}}"><button type="button" class="btn btn-warning">Se désister</button></a>
+                            {% endif %}
                         {% elseif tropDePersonnes %}
                             <button type="button" class="btn btn-warning">Sortie actuellement complète</button>
                         {% endif %}

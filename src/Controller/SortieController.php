@@ -150,4 +150,39 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute('sortie_mes_sorties');
     }
+
+    /**
+     * @Route(name="annuler", path="annuler", methods={"GET", "POST"})
+     */
+    public function annuler(Request $request, EntityManagerInterface $entityManager)
+    {
+        $utilisateurEnCours = $this->getUser();
+        $sortie = $entityManager->getRepository(Sortie::class)->find($request->get('id'));
+
+        $utilisateurEnCours->getSortiesInscrits();
+
+        $utilisateurEnCours->removeSorty($sortie);
+        $sortie->removeListeParticipant($utilisateurEnCours);
+        $etat = $entityManager->getRepository(Etat::class)->find(6);
+        $sortie->setEtat($etat);
+        $entityManager->remove($sortie);
+
+
+        $entityManager->persist($utilisateurEnCours);
+
+
+        $entityManager->flush();
+
+
+
+//        $placesRestantes= $sortie->getNbInscriptionsMax()+1;
+//        $sortie->setNbInscriptionsMax($placesRestantes);
+//        $entityManager->persist($sortie);
+//
+//        $entityManager->flush();
+
+        $this->addFlash("success","Sortie annulée avec succès !");
+
+        return $this->redirectToRoute('sortie_mes_sorties');
+    }
 }
