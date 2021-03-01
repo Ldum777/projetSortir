@@ -42,6 +42,7 @@ Mes sorties
                             <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Inscription</button></a>
                             {% else %}
                                 <a href="{{ url('sortie_se_desister',{'id': sortie.id})}} )}}"><button type="button" class="btn btn-warning">Se désister</button></a>
+                                <a  href="{{ url('profile_liste') }}"><button type="button" class="btn btn-primary">Participants</button> </a>
                         {% endif %}
                     </div>
                 </div>
