@@ -21,6 +21,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
+     *
+     *
+     * @Route(name="liste2", path="", methods={"GET", "POST"})
      * @Route(name="liste", path="liste", methods={"GET", "POST"})
      */
     public function sortie_liste(Request $request, EntityManagerInterface $manager)
@@ -62,6 +65,8 @@ class SortieController extends AbstractController
         $sortie = new sortie();
 
         $formSortie = $this->createForm(SortieFormType::class, $sortie);
+
+
         $formSortie->handleRequest($request);
 
 
@@ -69,7 +74,7 @@ class SortieController extends AbstractController
          * @var User
          */
         $utilisateurEnCours= $this->getUser();
-        if ($formSortie -> isSubmitted()) {
+        if ($formSortie -> isSubmitted() && $formSortie->isValid()) {
             $sortie->setOrganisateur($utilisateurEnCours);
             $sortie->addListeParticipant($utilisateurEnCours);
             $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax()-1);
