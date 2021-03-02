@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
@@ -18,32 +19,38 @@ class Sortie
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"unsigned":true})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\NotBlank(message="Ce champ est requis")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime
+     * @Assert\NotNull(message="Ce champ est requis")
      */
     private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank(message="Ce champ est requis")
      */
     private $duree;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotNull(message="Ce champ est requis")
      */
     private $dateLimiteInscription;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Ce champ est requis")
      */
     private $nbInscriptionsMax;
 
@@ -72,6 +79,7 @@ class Sortie
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="listeSorties")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Ce champ est requis")
      */
     private $lieu;
 
@@ -108,7 +116,7 @@ class Sortie
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut = null): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 
@@ -132,7 +140,7 @@ class Sortie
         return $this->dateLimiteInscription;
     }
 
-    public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription): self
+    public function setDateLimiteInscription(\DateTimeInterface $dateLimiteInscription = null): self
     {
         $this->dateLimiteInscription = $dateLimiteInscription;
 
