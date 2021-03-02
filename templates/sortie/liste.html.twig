@@ -24,7 +24,7 @@ Liste des sorties
                     <div class="card-header">Organisée par {{ sortie.organisateur.nom }}</div>
                     <div class="card-body">
                         <h4 class="card-title">{{ sortie.nom }}</h4>
-                        <div style= "overflow-x: hidden; overflow-y: scroll; border:#000000 1px solid; width: 220px; height: 150px;">
+                        <div class="my-4" style="overflow-x: hidden; overflow-y: scroll; border:#000000 1px solid; width: auto; height: 150px;">
                         <p class="card-text">Date de début: {{ sortie.dateHeureDebut|date("m/d/Y") }}</p>
                         <p class="card-text">Date limite inscription: {{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>
                         <p class="card-text">Info sortie: {{ sortie.infosSortie }}</p>
@@ -79,6 +79,7 @@ Liste des sorties
                             {#A REVOIR LES CONDITIONS#}
                                 {% if dejaInscrit %}
                                     <button type="button" class="btn btn-success">Déjà inscrit</button>
+                                    <br><br>
                                     <a  href="{{ url('profile_liste',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Participants</button> </a>
                                 {% else %}
                                 <button type="button" class="btn btn-danger">Inscription cloturée</button>

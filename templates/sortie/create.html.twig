@@ -80,4 +80,17 @@
 
     {{ form_end(formSortie) }}
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="{{ asset('build/scriptAjax.js') }}"></script>
+    <h1>Un formulaire de connexion en AJAX</h1>
+    <div id="resultat">
+        <!-- Nous allons afficher un retour en jQuery au visiteur -->
+    </div>
+    <form>
+        <p>
+            Nom d'utilisateur : <input type="text" id="username" />
+            Mot de passe : <input type="password" id="password" />
+            <input type="submit" id="asubmit" value="Se connecter !" />
+        </p>
+    </form>
 {% endblock %}
