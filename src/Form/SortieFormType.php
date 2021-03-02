@@ -9,6 +9,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -26,34 +27,36 @@ class SortieFormType extends AbstractType
     {
 
         $builder->add('nom', TextType::class, [
-            'label' => 'Intitulé de la sortie:',
+            'label' => 'Intitulé de la sortie :',
             'required' => true,
             'trim' => true,
         ]);
         $builder->add('dateHeureDebut', DateTimeType::class,[
             'date_widget' => 'single_text',
             'time_widget' => 'single_text',
-            'label' => 'Date et heure de début:',
+            'label' => 'Date et heure de début :',
             'required' => true,
         ]);
         $builder->add('duree',  NumberType::class,[
-            'label' => 'Durée de la sortie(en min):',
+            'label' => 'Durée de la sortie (en min) :',
             'trim' => true,
             'required' => true,
+            'invalid_message' => "Valeur incorrecte ",
         ]);
         $builder->add('dateLimiteInscription', DateType::class, [
             'widget' => 'single_text',
-            'label' => 'Date limite d\'inscription:',
+            'label' => 'Date limite d\'inscription :',
             'required' => true,
             'trim' => true,
         ]);
         $builder->add('nbInscriptionsMax', NumberType::class, [
-            'label' => 'Nombre maximum d\'inscription:',
+            'label' => 'Nombre maximum de participants (organisateur compris) :',
             'trim' => true,
             'required' => true,
+            'invalid_message' => "Valeur incorrecte ",
         ]);
         $builder->add('infosSortie', TextareaType::class, [
-            'label' => 'Infos sur la sortie:',
+            'label' => 'Infos sur la sortie :',
             'required' => false,
             'trim' => true,
         ]);
@@ -62,7 +65,7 @@ class SortieFormType extends AbstractType
             'choice_label'=> "nom",
             'placeholder'=>"Choisissez une ville",
             'class' => Ville::class,
-            'label' => 'Ville:',
+            'label' => 'Ville :',
             'required' => true,
             'mapped'=> false //Ne pas mapper une ville à une Sortie
         ]);
@@ -77,9 +80,13 @@ class SortieFormType extends AbstractType
         ]);
 
 
-
         $builder ->add ('submit', SubmitType::class, [
             'label' => 'Valider',
+
+        ]);
+        $builder ->add ('enregistrer', SubmitType::class, [
+            'label' => 'Enregistrer',
+
         ]);
     }
 

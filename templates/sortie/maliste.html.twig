@@ -9,7 +9,7 @@ Mes sorties
         {% for label, messages in app.flashes %}
             {% for message in messages %}
                 <h3 class="alert-{{ label }} ">
-                   {{ message }}
+                    {{ message }}
                 </h3>
             {% endfor %}
         {% endfor %}
@@ -18,24 +18,28 @@ Mes sorties
     <div class="container">
     <div class="row align-items-center">
         {% for sortie in mesSorties %}
-            <div class="container col-6 col-sm-4 col-md-3">
-                <div class="card text-white bg-dark  text-center" style="max-width: 18rem;">
+            <div class="container col-6 col-sm-4 col-md-4">
+                <div class="card text-white bg-dark  text-center">
                     <h3 class="card-header text-light bg-dark"> {{ sortie.lieu.nom }}</h3>
                         <img src="https://saviezvous.fr/wp-content/uploads/2020/04/point-d-interrogation.jpg">
                     <div class="card-header">Organisée par {{ sortie.organisateur.pseudo }}</div>
                     <div class="card-body">
                         <h4 class="card-title">{{ sortie.nom }}</h4>
-                        <div style= "overflow-x: hidden; overflow-y: scroll; border:#000000 1px solid; width: 220px; height: 150px;">
+                        <div class="my-4" style="overflow-x: hidden; overflow-y: scroll; border:#000000 1px solid; width: auto; height: 150px;">
                         <p class="card-text">Date de début : {{ sortie.dateHeureDebut|date("m/d/Y") }}</p>
                         <p class="card-text">Date limite inscription : {{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>
-                        <p class="card-text">Info sortie{{ sortie.infosSortie }}</p>
+                        <p class="card-text">Info sortie : {{ sortie.infosSortie }}</p>
                         <p class="card-text">Temps estimé : {{ sortie.duree }}</p>
-                        <p class="card-text">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>
+                        <p class="card-text mb-2">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>
 
                         </div>
                         {#Affichage du bouton Inscription#}
 
                         {# Contrôle de l'état de la sortie#}
+                        <div class="row justify-content-around">
+                        {% if sortie.etat.id == 2%}
+                            <a href="{{ url('sortie_editer',{'id': sortie.id})}}"><button type="button" class="btn btn-info">Editer</button></a>
+                        {% endif %}
                         {% if sortie.etat.libelle == "Annulée" %}
                             <button type="button" class="btn btn-danger">Annulée</button>
                         {% else %}
@@ -65,6 +69,7 @@ Mes sorties
                                     <a  href="{{ url('profile_liste',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Participants</button> </a>
                             {% endif %}
                         {% endif %}
+                    </div>
                     </div>
                 </div>
                 <hr>

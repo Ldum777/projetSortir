@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
@@ -52,6 +53,8 @@ class SortieRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+
+
 
 //        SELECT *
 //        FROM table1
@@ -114,4 +117,26 @@ class SortieRepository extends ServiceEntityRepository
         }
         return $sortiesRetournees;
     }
+
+    public function filtreEtat(array $sorties)
+    {
+
+        $sortiesRetournees = [];
+
+//        $etat = new Etat();
+//        $etat->getDoctrine()->getRepository(Etat::class)->find(1);
+//        var_dump($etat);
+//        exit();
+
+
+
+        foreach ($sorties as $sortie) {
+            $idEtat=($sortie->getEtat()->getid());
+            if($idEtat != 2){
+                $sortiesRetournees[]=$sortie;
+            }
+        }
+        return $sortiesRetournees;
+    }
+
 }

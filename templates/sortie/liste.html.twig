@@ -6,6 +6,13 @@ Liste des sorties
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Liste des sorties</h1>
 
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <h3 class="alert-{{ label }} ">
+                    {{ message }}
+                </h3>
+            {% endfor %}
+        {% endfor %}
 
     </div>
     <div class="text-center">
@@ -17,8 +24,8 @@ Liste des sorties
 
 
         {% for sortie in sorties %}
-            <div class="container col-6 col-sm-4 col-md-3" style="align-content: center">
-                <div class="card text-white bg-dark  text-center" style="max-width: 18rem;">
+            <div class="container col-6 col-sm-4 col-md-4" style="align-content: center">
+                <div class="card text-white bg-dark  text-center">
                     <h3 class="card-header text-light bg-dark"> {{ sortie.lieu.nom }}</h3>
                         <img src="https://saviezvous.fr/wp-content/uploads/2020/04/point-d-interrogation.jpg">
                     <div class="card-header">Organisée par {{ sortie.organisateur.pseudo }}</div>
@@ -35,6 +42,7 @@ Liste des sorties
                         {#Affichage du bouton Inscription#}
 
 {#                        Contrôle de l'état de la sortie#}
+                        <div class="row justify-content-around">
                         {% if sortie.etat.libelle == "Annulée" %}
                             <button type="button" class="btn btn-danger">Annulée</button>
                         {% else %}
@@ -79,7 +87,6 @@ Liste des sorties
                             {#A REVOIR LES CONDITIONS#}
                                 {% if dejaInscrit %}
                                     <button type="button" class="btn btn-success">Déjà inscrit</button>
-                                    <br><br>
                                     <a  href="{{ url('profile_liste',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Participants</button> </a>
                                 {% else %}
                                 <button type="button" class="btn btn-danger">Inscription cloturée</button>
@@ -97,7 +104,7 @@ Liste des sorties
                                 <button type="button" class="btn btn-warning">Sortie complète</button>
                             {% endif %}
                         {% endif %}
-
+                        </div>
                     </div>
                 </div>
                 <hr>

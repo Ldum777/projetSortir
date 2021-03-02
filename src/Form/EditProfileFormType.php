@@ -16,13 +16,13 @@ class EditProfileFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('nom', TextType::class, [
-            'label'=> 'Nom',
+            'label'=> 'Nom :',
             'trim'=> true,
             'required' => true,
 
         ]);
         $builder->add('prenom', TextType::class, [
-            'label'=> 'Prénom',
+            'label'=> 'Prénom :',
             'trim'=> true,
             'required' => true,
 
@@ -34,19 +34,19 @@ class EditProfileFormType extends AbstractType
 
         ]);
         $builder->add('telephone', TextType::class, [
-            'label'=> 'telephone (optionnel)',
+            'label'=> 'telephone (optionnel) :',
             'trim'=> true,
             'required' => false,
 
         ]);
         $builder->add('email', EmailType::class, [
-            'label'=> 'Adresse Email',
+            'label'=> 'Adresse Email :',
             'trim'=> true,
             'required' => false,
 
         ]);
         $builder->add('plainPassword', PasswordType::class, [
-            'label'=> 'Mot de passe',
+            'label'=> 'Mot de passe :',
             'trim'=> true,
             'required' => false,
 
