@@ -6,6 +6,7 @@ namespace App\Form;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -57,8 +58,18 @@ class SortieFormType extends AbstractType
             'trim' => true,
         ]);
 
+        $builder->add('ville',  EntityType::class, [
+            'choice_label'=> "nom",
+            'placeholder'=>"Choisissez une ville",
+            'class' => Ville::class,
+            'label' => 'Ville:',
+            'required' => true,
+            'mapped'=> false //Ne pas mapper une ville à une Sortie
+        ]);
+
         $builder->add('lieu',  EntityType::class, [
             'choice_label'=> "nom",
+            'placeholder'=>"Choisissez un lieu",
             'class' => Lieu::class,
             'label' => 'Lieu:',
             'required' => true,
@@ -79,4 +90,11 @@ class SortieFormType extends AbstractType
             'data_class' => Sortie::class,
         ]);
     }
+
+    //Doc de Symfony
+    //Pour le formulaire de modification, il faudra regarder les formEvent
+    //postSetData permet de faire des modifications après chargement de la page
+    //Permet de dire quelle ville doit être sélectionnée dans la liste de villes
+    
+
 }

@@ -107,6 +107,11 @@ class User implements UserInterface
      */
     private $plainPassword;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $pseudo;
+
     public function getPlainPassword()
     {
         return $this->plainPassword;
@@ -326,6 +331,18 @@ class User implements UserInterface
     public function setSiteRattachement(?Site $siteRattachement): self
     {
         $this->siteRattachement = $siteRattachement;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

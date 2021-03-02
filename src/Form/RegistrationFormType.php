@@ -73,6 +73,14 @@ class RegistrationFormType extends AbstractType
             ]
         ]);
 
+        $builder->add('pseudo', TextType::class, [
+            'trim'=> true,
+            'required' => true,
+            'attr' => [
+                'class'=> 'form-control'
+            ]
+        ]);
+
         $builder->add('telephone', TextType::class, [
             'trim'=> true,
             'required' => true,

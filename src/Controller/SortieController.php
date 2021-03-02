@@ -7,12 +7,17 @@ use App\Entity\Etat;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Entity\Ville;
 use App\Form\SortieFormType;
+use App\Repository\LieuRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Form\SearchSiteType;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 /**
@@ -83,7 +88,8 @@ class SortieController extends AbstractController
             $entityManager->persist($formSortie->getData());
             $entityManager->flush();
             $this->addFlash("success", "Sortie créée !");
-            return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
+            return $this->redirectToRoute('sortie_liste');
+//            return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
         }
 
         return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
@@ -194,5 +200,32 @@ class SortieController extends AbstractController
         $this->addFlash("success","Sortie annulée avec succès !");
 
         return $this->redirectToRoute('sortie_mes_sorties');
+    }
+
+
+
+//l'API' doit recevoir l'ID' de la ville et revoyer un tableau de lieu au format JSON
+    /**
+     * @Route(name="api_ville", path="api/villes/lieux/{id}", methods={"GET"})
+     *
+     */
+    public function api_ville(Ville $ville, LieuRepository $lieuRepository, SerializerInterface $serializer){
+        //le $ville dans le tableau réfère au paramètre de la fonction au-dessus
+        $lieux = $lieuRepository->findBy(['ville'=>$ville]);
+//        var_dump($lieux);
+//        exit();
+
+
+//        On utilise le serializer pour transformer me tableau d'objets en JSON
+//        $var = $serializer->serialize($lieux, 'json'); Avant annotation Groups
+        $var = $serializer->serialize($lieux, 'json', ['groups'=>['listeLieux']]);
+        //Le tableau vide est si on veut mettre des entêtes
+        //Le true signife que ce qu'on envoie est déjà en json
+        return new JsonResponse($var, 200, [], true);
+        //Ici on a : HTTP 500 Internal Server Error
+        //A circular reference has been detected when serializing the object of class "App\Entity\Sortie" (configured limit: 1).
+        //A cause des relations bidirectionnelles
+        //Dans les entités Lieu et Ville, on doit dire quelles infos on veut sérializer, sinon il les prend toutes
+
     }
 }
