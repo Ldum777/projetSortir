@@ -51,8 +51,11 @@ class UserFixtures extends Fixture
                 ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc' )
                 ->setEmail("admin@defaut.com")
                 ->setSiteRattachement($site)
-                ->setRoles(["ROLE_ADMIN"]);
+                ->setRoles(["ROLE_ADMIN"])
+                ->setPseudo('Admin');
+
         $manager->persist($userAdmin);
+
         $userBis = new User();
         $userBis->setNom("UserDefaultSurname N°bis")
             ->setPrenom("UserDefaultName N°bis")
@@ -62,7 +65,8 @@ class UserFixtures extends Fixture
             ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
             ->setEmail("utilisateurbis"."@defaut.com")
             ->setSiteRattachement($site)
-            ->setRoles(["ROLE_USER"]);
+            ->setRoles(["ROLE_USER"])
+            ->setPseudo('User');
 
         $manager->persist($userBis);
 
@@ -76,7 +80,8 @@ class UserFixtures extends Fixture
                 ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
                 ->setEmail("utilisateur".$i."@defaut.com")
                 ->setSiteRattachement($site)
-                ->setRoles(["ROLE_USER"]);
+                ->setRoles(["ROLE_USER"])
+                ->setPseudo('User'.$i);
 
             $manager->persist($user);
         }
@@ -90,7 +95,8 @@ class UserFixtures extends Fixture
                 ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
                 ->setEmail("utilisateur".$i."@defaut.com")
                 ->setSiteRattachement($site2)
-                ->setRoles(["ROLE_USER"]);
+                ->setRoles(["ROLE_USER"])
+                ->setPseudo('User'.$i);
 
             $manager->persist($user);
         }
@@ -104,7 +110,8 @@ class UserFixtures extends Fixture
                 ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
                 ->setEmail("utilisateur".$i."@defaut.com")
                 ->setSiteRattachement($site3)
-                ->setRoles(["ROLE_USER"]);
+                ->setRoles(["ROLE_USER"])
+                ->setPseudo('User'.$i);
 
             $manager->persist($user);
         }
