@@ -8,6 +8,8 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
+use DateInterval;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -40,7 +42,7 @@ class UserFixtures extends Fixture
 
 
 
-            $userAdmin = new User();
+        $userAdmin = new User();
         $userAdmin->setPrenom("AdminName")
                 ->setNom("AdminSurname")
                 ->setTelephone("0606060606")
@@ -51,7 +53,20 @@ class UserFixtures extends Fixture
                 ->setSiteRattachement($site)
                 ->setRoles(["ROLE_ADMIN"]);
         $manager->persist($userAdmin);
-        for ($i=1; $i <= 15; $i++) {
+        $userBis = new User();
+        $userBis->setNom("UserDefaultSurname N°bis")
+            ->setPrenom("UserDefaultName N°bis")
+            ->setTelephone("0606060606")
+            ->setAdministrateur(0)
+            ->setActif(1)
+            ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
+            ->setEmail("utilisateurbis"."@defaut.com")
+            ->setSiteRattachement($site)
+            ->setRoles(["ROLE_USER"]);
+
+        $manager->persist($userBis);
+
+        for ($i=1; $i <= 5; $i++) {
             $user = new User();
             $user->setNom("UserDefaultSurname N°".$i)
                 ->setPrenom("UserDefaultName N°".$i)
@@ -64,7 +79,35 @@ class UserFixtures extends Fixture
                 ->setRoles(["ROLE_USER"]);
 
             $manager->persist($user);
-    }
+        }
+        for ($i=6; $i <= 10; $i++) {
+            $user = new User();
+            $user->setNom("UserDefaultSurname N°".$i)
+                ->setPrenom("UserDefaultName N°".$i)
+                ->setTelephone("0606060606")
+                ->setAdministrateur(0)
+                ->setActif(1)
+                ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
+                ->setEmail("utilisateur".$i."@defaut.com")
+                ->setSiteRattachement($site2)
+                ->setRoles(["ROLE_USER"]);
+
+            $manager->persist($user);
+        }
+        for ($i=11; $i <= 15; $i++) {
+            $user = new User();
+            $user->setNom("UserDefaultSurname N°".$i)
+                ->setPrenom("UserDefaultName N°".$i)
+                ->setTelephone("0606060606")
+                ->setAdministrateur(0)
+                ->setActif(1)
+                ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
+                ->setEmail("utilisateur".$i."@defaut.com")
+                ->setSiteRattachement($site3)
+                ->setRoles(["ROLE_USER"]);
+
+            $manager->persist($user);
+        }
         $etat= new Etat();
         $etat->setLibelle("Ouverte");
         $manager->persist($etat);
@@ -77,23 +120,6 @@ class UserFixtures extends Fixture
 
         $manager->persist($ville);
         $manager->persist($lieu);
-
-        for ($i=1; $i <= 15; $i++) {
-            $sortie = new Sortie();
-            $sortie->setNom("Vamos a la playa N°".$i)
-                ->setDateHeureDebut(new \DateTime("now"))
-                ->setDuree(240)
-                ->setDateLimiteInscription(new \DateTime("now"))
-                ->setNbInscriptionsMax(5)
-                ->setInfosSortie("on va se promener bande de couillons")
-                ->setEtat($etat)
-                ->setLieu($lieu)
-                ->setOrganisateur($user)
-                ->setSiteOrganisateur($site);
-
-            $manager->persist($sortie);
-
-        }
 
 
         $lieu = new Lieu();
@@ -159,6 +185,130 @@ class UserFixtures extends Fixture
         $ville4->setNom("Angers")
             ->setCodePostal("49100");
         $manager->persist($ville4);
+
+
+        for ($i=1; $i <= 3; $i++) {
+            //Préparation de la date
+            $date = new DateTime("now");
+            $date->add(new DateInterval("P".$i."D"));
+
+            $sortie = new Sortie();
+            $sortie->setNom("Vamos a la playa N°".$i)
+                ->setDateHeureDebut(new \DateTime("now"))
+                ->setDuree(240)
+                ->setDateLimiteInscription($date)
+                ->setNbInscriptionsMax($i)
+                ->setInfosSortie("on va se promener bande de couillons")
+                ->setEtat($etat)
+                ->setLieu($lieu)
+                ->setOrganisateur($user)
+                ->setSiteOrganisateur($site)
+                ->addListeParticipant($user)
+                ;
+
+            $manager->persist($sortie);
+
+        }
+        for ($i=4; $i <= 5; $i++) {
+            //Préparation de la date
+            $date = new DateTime("now");
+            $date->add(new DateInterval("P".$i."D"));
+
+            $sortie = new Sortie();
+            $sortie->setNom("Vamos a la playa N°".$i)
+                ->setDateHeureDebut(new \DateTime("now"))
+                ->setDuree(240)
+                ->setDateLimiteInscription($date)
+                ->setNbInscriptionsMax(0)
+                ->setInfosSortie("on va se promener bande de couillons")
+                ->setEtat($etat)
+                ->setLieu($lieu)
+                ->setOrganisateur($user)
+                ->setSiteOrganisateur($site)
+                ->addListeParticipant($user)
+            ;
+
+            $manager->persist($sortie);
+
+        }
+        for ($i=6; $i <= 7; $i++) {
+            //Préparation de la date
+            $date = new DateTime("now");
+            $date->sub(new DateInterval("P".$i."D"));
+
+            $sortie = new Sortie();
+            $sortie->setNom("Vamos a la playa N°".$i)
+                ->setDateHeureDebut(new \DateTime("now"))
+                ->setDuree(240)
+                ->setDateLimiteInscription($date)
+                ->setNbInscriptionsMax($i-6)
+                ->setInfosSortie("on va se promener bande de couillons")
+                ->setEtat($etat)
+                ->setLieu($lieu2)
+                ->setOrganisateur($user)
+                ->setSiteOrganisateur($site2)
+                ->addListeParticipant($user);
+
+            $manager->persist($sortie);
+
+        }
+        for ($i=8; $i <= 10; $i++) {
+            //Préparation de la date
+            $date = new DateTime("now");
+            $date->sub(new DateInterval("P".$i."D"));
+
+            $sortie = new Sortie();
+            $sortie->setNom("Vamos a la playa N°".$i)
+                ->setDateHeureDebut(new \DateTime("now"))
+                ->setDuree(240)
+                ->setDateLimiteInscription($date)
+                ->setNbInscriptionsMax($i-6)
+                ->setInfosSortie("on va se promener bande de couillons")
+                ->setEtat($etat)
+                ->setLieu($lieu2)
+                ->setOrganisateur($user)
+                ->setSiteOrganisateur($site2)
+                ->addListeParticipant($userBis);
+
+            $manager->persist($sortie);
+
+        }
+        for ($i=11; $i <= 13; $i++) {
+        $sortie = new Sortie();
+        $sortie->setNom("Vamos a la playa N°".$i)
+            ->setDateHeureDebut(new \DateTime("now"))
+            ->setDuree(240)
+            ->setDateLimiteInscription(new \DateTime("now"))
+            ->setNbInscriptionsMax($i-11)
+            ->setInfosSortie("on va se promener bande de couillons")
+            ->setEtat($etat6)
+            ->setLieu($lieu3)
+            ->setOrganisateur($userBis)
+            ->setSiteOrganisateur($site3)
+            ->addListeParticipant($userBis);
+
+        $manager->persist($sortie);
+
+        }
+
+        for ($i=14; $i <= 15; $i++) {
+            $sortie = new Sortie();
+            $sortie->setNom("Vamos a la playa N°".$i)
+                ->setDateHeureDebut(new \DateTime('2021-01-14'))
+                ->setDuree(240)
+                ->setDateLimiteInscription(new \DateTime("now"))
+                ->setNbInscriptionsMax($i-11)
+                ->setInfosSortie("on va se promener bande de couillons")
+                ->setEtat($etat6)
+                ->setLieu($lieu3)
+                ->setOrganisateur($userBis)
+                ->setSiteOrganisateur($site3)
+                ->addListeParticipant($userBis);
+
+            $manager->persist($sortie);
+
+        }
+
 
 
 

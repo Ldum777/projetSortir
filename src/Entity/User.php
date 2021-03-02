@@ -12,37 +12,42 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Email invalide ou déjà utlisé")
  */
 class User implements UserInterface
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"unsigned":true})
      */
     private $id;
     /**
+     * @Assert\NotBlank(message="Ce champ est requis")
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Ce champ est requis")
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * @Assert\NotBlank(message="Ce champ est requis")
      * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $telephone;
 
     /**
+     * @Assert\NotBlank(message="Ce champ est requis")
      * @ORM\Column(type="string", length=100)
      */
     private $email;
 
     /**
+     *
      * @ORM\Column(type="string", length=100)
      */
     private $password;
@@ -97,6 +102,9 @@ class User implements UserInterface
         $this->plainPassword = $plainPassword;
     }
 
+    /**
+     * @Assert\NotBlank(message="Ce champ est requis")
+     */
     private $plainPassword;
 
     public function getPlainPassword()
@@ -189,6 +197,10 @@ class User implements UserInterface
     //0N AJOUTE ICI
     public function __construct()
     {
+
+        $this->roles[]="ROLE_USER";
+        $this->administrateur = 0;
+        $this->actif=1;
         $this->sorties = new ArrayCollection();
         $this->sortiesInscrits = new ArrayCollection();
     }

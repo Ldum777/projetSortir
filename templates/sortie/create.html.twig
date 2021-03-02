@@ -65,6 +65,12 @@
     </div>
 
     <div class="form-group">
+        {{ form_label(formSortie.ville) }}
+        <span style="color:red;">{{ form_errors(formSortie.ville)}}
+            {{ form_widget(formSortie.ville, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
         {{ form_label(formSortie.lieu) }}
         <span style="color:red;">{{ form_errors(formSortie.lieu)}}
             {{ form_widget(formSortie.lieu, {'attr': {'class': 'form-control'}}) }}
@@ -80,4 +86,55 @@
 
     {{ form_end(formSortie) }}
 
+    <script>
+        // Executer le script seulement quand la page est chargée
+        $(function() {
+            //le path, est généré au niveau du serveur, on est obligé de lui donner un
+            //identifiant qu'on manipulera après
+            //Pour l'instant c'est 0, mais après on va lui mettre uneVille
+            var url="{{ path('sortie_api_ville', {id:0}) }}";
+
+            //id champ : sortie_form_ville
+
+            // jQuery('#sortie_form_ville') $ est un alias
+
+            // $('#sortie_form_ville').change(function(){
+            //
+            // }); équivalents
+            $('#sortie_form_ville').on('change', afficherLieux);
+            afficherLieux();
+            function afficherLieux(){
+                //On veut récuperer la valeur du champ sélectionné dans le select
+                let uneVille = $('#sortie_form_ville').val();
+
+                //Vider la liste des lieux (empty vide des éléments html)
+                $('#sortie_form_lieu').empty();
+
+                //Appel Ajax pour rechargement partiel de la page
+                //Sert à appeler un serveur
+                if(uneVille>0){
+                    //Changement de l'url (attention, ne pas écraser la variable
+                    //sinon, ça ne marchera qu'au chargement de la page)
+                    let urlLieu=url.replace('0',uneVille);
+                    console.log(urlLieu);
+                    $.ajax({url:urlLieu}).done(function(data){
+                        //Traitement des données qu'on a récupéré
+                        for (const lieu of data) {
+                            //Création d'un élément option
+                            let o = $('<option/>',{value:lieu.id, html:lieu.nom});
+                            $('#sortie_form_lieu').append(o);
+                        }
+
+                    })
+                    .fail(function(){
+                        console.log('erreur');
+                    })
+                }
+            }
+
+        });
+        //Réussir à faire une API, vérfier qu'elle fonctionne
+        //Ensuite faire le javascript et vérifier chaque étape qu'on manipule les données qu'on pense
+        //étape par étape
+    </script>
 {% endblock %}

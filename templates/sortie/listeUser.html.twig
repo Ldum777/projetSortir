@@ -4,24 +4,24 @@ Liste des users
 {% endblock %}
 {% block body %}
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">Liste des users</h1>
-
-
-{#    </div>#}
-{#    <div class="text-center">#}
-{#       <h6> Filtrer par site {{ form(formSearchSite) }}</h6>#}
-{#    </div>#}
+        <h1 class="display-4">Liste des participants</h1>
     <br>
     <div class="container">
-{#    <div class="row align-items-center">#}
+    <div class="row align-items-center">
         {% for user in users %}
             {{ user.nom }}
-            <div class="container col-6 col-sm-4 col-md-3">
-                <div class="card text-white bg-dark  text-center" style="max-width: 18rem;">
+    <div class="container col-6 col-sm-4 col-md-3">
+        <div class="card text-white bg-dark  text-center" style="max-width: 18rem;">
                     <h3 class="card-header text-light bg-dark"> {{ user.nom }}{{ user.prenom }}</h3>
-{#                        <img src="https://saviezvous.fr/wp-content/uploads/2020/04/point-d-interrogation.jpg">#}
-                    <div class="card-header">{{ user.siteRattachement.nom}}</div>
-{#                    <div class="card-body">#}
+            <img src="https://www.bootdey.com/img/Content/avatar/avatar2.png" alt="Admin" class="rounded-circle" width="150">
+            <div class="d-flex flex-column align-items-center text-center">
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+        {#                    <div class="card-body">#}
 {#                        <h4 class="card-title">{{ sortie.nom }}</h4>#}
 {#                        <p class="card-text">Date de début : {{ sortie.dateHeureDebut|date("m/d/Y") }}</p>#}
 {#                        <p class="card-text">Date limite inscription : {{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>#}

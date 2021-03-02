@@ -25,21 +25,45 @@ Mes sorties
                     <div class="card-header">Organisée par {{ sortie.organisateur.nom }}</div>
                     <div class="card-body">
                         <h4 class="card-title">{{ sortie.nom }}</h4>
+                        <div style= "overflow-x: hidden; overflow-y: scroll; border:#000000 1px solid; width: 220px; height: 150px;">
                         <p class="card-text">Date de début : {{ sortie.dateHeureDebut|date("m/d/Y") }}</p>
                         <p class="card-text">Date limite inscription : {{ sortie.dateLimiteInscription|date("m/d/Y") }}</p>
                         <p class="card-text">Info sortie{{ sortie.infosSortie }}</p>
                         <p class="card-text">Temps estimé : {{ sortie.duree }}</p>
                         <p class="card-text">Nombre d'inscriptions Max : {{ sortie.nbInscriptionsMax }}</p>
 
+                        </div>
                         {#Affichage du bouton Inscription#}
-                        {% set afficherBouton = true %}
-                        {% for maSortie in mesSorties %}
-                            {% if  maSortie.id==sortie.id%}
+
+                        {# Contrôle de l'état de la sortie#}
+                        {% if sortie.etat.libelle == "Annulée" %}
+                            <button type="button" class="btn btn-danger">Annulée</button>
+                        {% else %}
+                            {# Contrôle si je suis organisateur#}
+                            {% set organisateur = false %}
+                            {% if  sortie.organisateur== app.user%}
+                                {% set organisateur = true %}
+                                {% set dejaInscrit = true %}
                                 {% set afficherBouton = false %}
                             {% endif %}
-                        {% endfor %}
-                        {% if  afficherBouton == true%}
-                            <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Inscription</button></a>
+
+
+                            {% set afficherBouton = true %}
+                            {% for maSortie in mesSorties %}
+                                {% if  maSortie.id==sortie.id%}
+                                    {% set afficherBouton = false %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if  afficherBouton == true%}
+                                <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Inscription</button></a>
+                                {% elseif organisateur %}
+                                    <a href="{{ url('sortie_annuler',{'id': sortie.id})}} )}}">
+                                        <button type="button" class="btn btn-danger">Annuler la sortie</button></a>
+                                {% else %}
+                                    <a href="{{ url('sortie_se_desister',{'id': sortie.id})}} )}}"><button type="button" class="btn btn-warning">Se désister</button></a>
+    {#                            {% endif %}#}
+                                    <a  href="{{ url('profile_liste',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Participants</button> </a>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

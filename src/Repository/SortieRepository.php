@@ -6,6 +6,7 @@ use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -96,4 +97,21 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function filtreUnMois(array $sorties)
+    {
+
+        $sortiesRetournees = [];
+
+        $unMoisAvant= new DateTime('now');
+        $unMoisAvant->sub(new \DateInterval('P1M'));
+
+        foreach ($sorties as $sortie) {
+
+            if($sortie->getDateHeureDebut() > $unMoisAvant){
+                $sortiesRetournees[]=$sortie;
+            }
+        }
+        return $sortiesRetournees;
+    }
 }

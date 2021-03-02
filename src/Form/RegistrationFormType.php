@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Site;
 use App\Entity\User;
 use Doctrine\DBAL\Types\BooleanType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Config\Definition\BooleanNode;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -79,6 +81,16 @@ class RegistrationFormType extends AbstractType
             ]
         ]);
 
+        //A retravailler avec une liste de sites.
+        $builder->add('siteRattachement', EntityType::class, [
+            'class'=> Site::class,
+            'choice_label' => 'nom',
+            'required' => true,
+            'attr' => [
+                'class'=> 'form-control'
+            ]
+        ]);
+
         $builder->add('email', EmailType::class, [
             'trim'=> true,
             'required' => true,
@@ -87,7 +99,7 @@ class RegistrationFormType extends AbstractType
             ]
         ]);
 
-        $builder->add('password', PasswordType::class, [
+        $builder->add('plainPassword', PasswordType::class, [
             'trim'=> true,
             'required' => true,
             'attr' => [
