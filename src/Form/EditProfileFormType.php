@@ -27,6 +27,12 @@ class EditProfileFormType extends AbstractType
             'required' => true,
 
         ]);
+        $builder->add('pseudo', TextType::class, [
+            'label'=> 'Pseudo',
+            'trim'=> true,
+            'required' => true,
+
+        ]);
         $builder->add('telephone', TextType::class, [
             'label'=> 'telephone (optionnel)',
             'trim'=> true,
