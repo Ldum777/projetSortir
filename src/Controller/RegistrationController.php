@@ -24,6 +24,13 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pseudo = $form->get('pseudo')->getData();
+            $test = preg_match('/[\\/^£$%&*\'()}{@#~?><,|=+¬]/', $pseudo);
+            if($test != 0){
+                $this->addFlash('string', 'Pseudo invalide, petit coquinou !');
+                return $this -> redirectToRoute('home_home');
+            };
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -44,7 +51,7 @@ class RegistrationController extends AbstractController
                 'main' // firewall name in security.yaml
             );*/
             return $this -> redirectToRoute('home_home');
-        }
+        };
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

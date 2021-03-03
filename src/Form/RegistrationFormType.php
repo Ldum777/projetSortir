@@ -77,8 +77,9 @@ class RegistrationFormType extends AbstractType
             'trim'=> true,
             'required' => true,
             'attr' => [
-                'class'=> 'form-control'
-            ]
+                'class'=> 'form-control',
+                'pattern'=> '[a-zA-Z0-9_-]*',
+            ],
         ]);
 
         $builder->add('telephone', TextType::class, [

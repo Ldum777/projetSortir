@@ -33,7 +33,10 @@ class Sortie
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
      * @Assert\NotNull(message="Ce champ est requis")
+     *
+     * @Assert\GreaterThanOrEqual("today")
      */
+
     private $dateHeureDebut;
 
     /**
@@ -48,8 +51,10 @@ class Sortie
     private $duree;
 
     /**
+     *
      * @ORM\Column(type="datetime")
      * @Assert\NotNull(message="Ce champ est requis")
+     * @Assert\LessThanOrEqual(propertyPath="dateHeureDebut", message="Cette date doit être antérieur à {{ compared_value }}")
      */
     private $dateLimiteInscription;
 

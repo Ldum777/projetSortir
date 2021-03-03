@@ -4,6 +4,14 @@
 
 {% block body %}
 
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <h3 class="alert-{{ label }} ">
+                {{ message }}
+            </h3>
+        {% endfor %}
+    {% endfor %}
+
     <div class="jumbotron">
         <h1 class="display-4">Sortir.com!</h1>
         <p class="lead"> ENI créateur de connexion</p>
