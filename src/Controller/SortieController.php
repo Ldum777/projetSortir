@@ -4,10 +4,12 @@
 namespace App\Controller;
 
 use App\Entity\Etat;
+use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
+use App\Form\LieuFormType;
 use App\Form\SortieFormType;
 use App\Repository\LieuRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -270,7 +272,31 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('sortie_mes_sorties');
     }
 
+/**
+* @Route(name="create_lieu", path="creer_lieu", methods={"GET", "POST"})
+*
+*/
+public function create_lieu(EntityManagerInterface $entityManager, Request $request){
+    $lieu = new Lieu();
+    $formLieu = $this->createForm(LieuFormType::class, $lieu);
+    $formLieu->handleRequest($request);
 
+    if ($formLieu -> isSubmitted() && $formLieu->isValid()) {
+        $lieu->setNom($formLieu->get('nom')->getData());
+        $lieu->setRue($formLieu->get('rue')->getData());
+        $lieu->setLatitude($formLieu->get('latitude')->getData());
+        $lieu->setLongitude($formLieu->get('longitude')->getData());
+        $lieu->setVille($formLieu->get('ville')->getData());
+        $this->addFlash("success", "Lieu créé !");
+        $entityManager->persist($lieu);
+        $entityManager->flush();
+        return $this->redirectToRoute('sortie_create');
+    }
+
+    return $this->render('sortie/createLieu.html.twig', ['formLieu'=> $formLieu->createView()]);
+
+
+}
 
 //l'API' doit recevoir l'ID' de la ville et revoyer un tableau de lieu au format JSON
     /**

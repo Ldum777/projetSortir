@@ -3,7 +3,11 @@
 {% block title %}Nouvelle sortie{% endblock %}
 
 {% block message %}
-<div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
+
+{% endblock message %}
+
+{% block body %}
+    <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <h3 class="alert-{{ label }} ">
@@ -11,10 +15,7 @@
             </h3>
         {% endfor %}
     {% endfor %}
-</div>
-{% endblock message %}
-
-{% block body %}
+    </div>
 
     <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
         <h1>Créer une nouvelle sortie</h1>
@@ -69,7 +70,6 @@
         <span style="color:red;">{{ form_errors(formSortie.ville)}}
             {{ form_widget(formSortie.ville, {'attr': {'class': 'form-control'}}) }}
     </div>
-
     <div class="form-group">
         {{ form_label(formSortie.lieu) }}
         <span style="color:red;">{{ form_errors(formSortie.lieu)}}
@@ -86,6 +86,9 @@
         </div>
 
     {{ form_end(formSortie) }}
+    <div class="btn">
+        <a href="{{ url('sortie_create_lieu')}}"><button>Ajouter Lieu</button></a>
+    </div>
 
     <script>
         // Executer le script seulement quand la page est chargée
@@ -93,7 +96,7 @@
             //le path, est généré au niveau du serveur, on est obligé de lui donner un
             //identifiant qu'on manipulera après
             //Pour l'instant c'est 0, mais après on va lui mettre uneVille
-            var url="{{ path('sortie_api_ville', {id:0}) }}";
+            var url='{{ path('sortie_api_ville', {id:0}) }}';
 
             //id champ : sortie_form_ville
 
@@ -125,7 +128,6 @@
                             let o = $('<option/>',{value:lieu.id, html:lieu.nom});
                             $('#sortie_form_lieu').append(o);
                         }
-
                     })
                     .fail(function(){
                         console.log('erreur');
