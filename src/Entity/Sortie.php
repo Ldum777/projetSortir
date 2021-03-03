@@ -37,8 +37,13 @@ class Sortie
     private $dateHeureDebut;
 
     /**
+     * @Assert\Range(
+     *      min = 10,
+     *      max = 720,
+     *      notInRangeMessage = "La durée de la sortie doit être comprise entre {{ min }} min et {{ max }} min."
+     * )
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\NotBlank(message="Ce champ est requis")
+     * @Assert\NotBlank(message="Ce champ est requis",)
      */
     private $duree;
 
@@ -49,6 +54,11 @@ class Sortie
     private $dateLimiteInscription;
 
     /**
+     *  @Assert\Range(
+     *      min = 2,
+     *      max = 30,
+     *      notInRangeMessage = "le nombre de participants doit être compris entre {{ min }} et {{ max }} personnes."
+     * )
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(message="Ce champ est requis")
      */

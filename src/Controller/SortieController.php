@@ -57,6 +57,7 @@ class SortieController extends AbstractController
         findBySortieUser($manager, $sorties, $utilisateurEnCours->getId());
         //méthode qui enlève les sorties de plus d'un mois
         $sorties = $manager->getRepository(Sortie::class)->filtreUnMois($sorties);
+        $sorties = $manager->getRepository(Sortie::class)->filtreEtat($sorties);
         return $this->render('sortie/liste.html.twig',
             ['sorties'=>$sorties,
                 'mesSorties' => $sortieUser,
@@ -65,9 +66,15 @@ class SortieController extends AbstractController
 
     /**
      * @Route(name="create", path="creer", methods={"GET", "POST"})
+     *
      */
     public function create(EntityManagerInterface $entityManager, Request $request){
         $sortie = new sortie();
+
+        if ($request->get('id')!=null){
+            $sortie = $entityManager->getRepository(Sortie::class)->find($request->get('id'));
+
+        }
 
         $formSortie = $this->createForm(SortieFormType::class, $sortie);
 
@@ -80,21 +87,82 @@ class SortieController extends AbstractController
          */
         $utilisateurEnCours= $this->getUser();
         if ($formSortie -> isSubmitted() && $formSortie->isValid()) {
+
             $sortie->setOrganisateur($utilisateurEnCours);
             $sortie->addListeParticipant($utilisateurEnCours);
             $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax()-1);
             $sortie->setSiteOrganisateur($utilisateurEnCours->getSiteRattachement());
-            $sortie->setEtat($this->getDoctrine()->getRepository(Etat::class)->find(1));
-            $entityManager->persist($formSortie->getData());
+            if($formSortie->getClickedButton()->getName() =="submit") {
+                $sortie->setEtat($this->getDoctrine()->getRepository(Etat::class)->find(1));
+                $this->addFlash("success", "Sortie publiée !");
+            }
+            else {
+                $sortie->setEtat($this->getDoctrine()->getRepository(Etat::class)->find(2));
+                $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax()+1);
+                $this->addFlash("success", "Sortie créée !");
+            }
+            $entityManager->persist($sortie);
             $entityManager->flush();
-            $this->addFlash("success", "Sortie créée !");
-            return $this->redirectToRoute('sortie_liste');
+
+            return $this->redirectToRoute('sortie_mes_sorties');
 //            return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
         }
 
-        return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
+        return $this->render('sortie/create.html.twig', ['sortie'=>$sortie,'formSortie'=> $formSortie->createView()]);
+
 
         }
+
+    /**
+     * @Route(name="editer", path="editer", methods={"GET", "POST"})
+     *
+     */
+    public function editer(EntityManagerInterface $entityManager, Request $request){
+        $sortie = new sortie();
+
+        if ($request->get('id')!=null){
+            $sortie = $entityManager->getRepository(Sortie::class)->find($request->get('id'));
+
+        }
+
+        $formSortie = $this->createForm(SortieFormType::class, $sortie);
+
+
+        $formSortie->handleRequest($request);
+
+
+        /**
+         * @var User
+         */
+        $utilisateurEnCours= $this->getUser();
+        if ($formSortie -> isSubmitted() && $formSortie->isValid()) {
+
+            $sortie->setOrganisateur($utilisateurEnCours);
+            $sortie->addListeParticipant($utilisateurEnCours);
+            $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax()-1);
+            $sortie->setSiteOrganisateur($utilisateurEnCours->getSiteRattachement());
+
+            if($formSortie->getClickedButton()->getName() =="submit") {
+                $sortie->setEtat($this->getDoctrine()->getRepository(Etat::class)->find(1));
+                $this->addFlash("success", "Sortie publiée !");
+            }
+            else {
+                $sortie->setEtat($this->getDoctrine()->getRepository(Etat::class)->find(2));
+                $sortie->setNbInscriptionsMax($sortie->getNbInscriptionsMax()+1);
+                $this->addFlash("success", "Sortie modifiée !");
+            }
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('sortie_mes_sorties');
+//            return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
+        }
+
+        return $this->render('sortie/edit.html.twig', ['sortie'=>$sortie,'formSortie'=> $formSortie->createView()]);
+
+
+    }
+
 
     /**
      * @Route(name="inscription", path="inscription", methods={"GET", "POST"})
@@ -177,8 +245,8 @@ class SortieController extends AbstractController
 
         $utilisateurEnCours->getSortiesInscrits();
 
-        $utilisateurEnCours->removeSorty($sortie);
-        $sortie->removeListeParticipant($utilisateurEnCours);
+//        $utilisateurEnCours->removeSorty($sortie);
+//        $sortie->removeListeParticipant($utilisateurEnCours);
         $etat = $entityManager->getRepository(Etat::class)->find(6);
         $sortie->setEtat($etat);
 //        $entityManager->remove($sortie);
