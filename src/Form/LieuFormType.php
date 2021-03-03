@@ -37,13 +37,13 @@ class LieuFormType extends AbstractType
             'trim' => true,
         ]);
         $builder->add('latitude',  NumberType::class,[
-            'label' => 'Latitude :',
+            'label' => 'Latitude (optionnel):',
             'trim' => true,
             'required' => false,
             'invalid_message' => "Valeur incorrecte ",
         ]);
         $builder->add('longitude',  NumberType::class,[
-            'label' => 'Longitude :',
+            'label' => 'Longitude (optionnel):',
             'trim' => true,
             'required' => false,
             'invalid_message' => "Valeur incorrecte ",

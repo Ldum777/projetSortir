@@ -9,6 +9,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Button;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -91,6 +92,9 @@ class SortieFormType extends AbstractType
         $builder ->add ('enregistrer', SubmitType::class, [
             'label' => 'Enregistrer',
 
+        ]);
+        $builder ->add ('ajout', SubmitType::class, [
+            'label' => 'Ajouter un lieu',
         ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event){

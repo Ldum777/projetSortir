@@ -79,16 +79,15 @@
 
         <div class="row justify-content-around mb-5" align="center">
 
-    {{ form_widget(formSortie.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_widget(formSortie.submit, {'attr': {'class': 'btn btn-primary'}}) }}
             {{ form_widget(formSortie.enregistrer, {'attr': {'class': 'btn btn-light'}}) }}
+            {{ form_widget(formSortie.ajout, {'attr': {'class': 'btn btn-warning'}}) }}
+
         </div>
        </div>
         </div>
 
     {{ form_end(formSortie) }}
-    <div class="btn">
-        <a href="{{ url('sortie_create_lieu')}}"><button>Ajouter Lieu</button></a>
-    </div>
 
     <script>
         // Executer le script seulement quand la page est chargée
