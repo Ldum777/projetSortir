@@ -70,6 +70,7 @@ class UserFixtures extends Fixture
 
         $manager->persist($userBis);
 
+
         for ($i=1; $i <= 5; $i++) {
             $user = new User();
             $user->setNom("UserDefaultSurname N°".$i)
@@ -82,7 +83,6 @@ class UserFixtures extends Fixture
                 ->setSiteRattachement($site)
                 ->setRoles(["ROLE_USER"])
                 ->setPseudo('User'.$i);
-
             $manager->persist($user);
         }
         for ($i=6; $i <= 10; $i++) {
@@ -331,14 +331,66 @@ class UserFixtures extends Fixture
 
         }
 
+        for ($i=14; $i <= 15; $i++) {
+            $sortie = new Sortie();
+            $sortie->setNom("Vamos a la playa N°".$i)
+                ->setDateHeureDebut(new \DateTime('2021-01-14'))
+                ->setDuree(240)
+                ->setDateLimiteInscription(new \DateTime("now"))
+                ->setNbInscriptionsMax($i-11)
+                ->setInfosSortie("on va se promener bande de couillons")
+                ->setEtat($etat6)
+                ->setLieu($lieu3)
+                ->setOrganisateur($userBis)
+                ->setSiteOrganisateur($site3)
+                ->addListeParticipant($user);
+
+            $manager->persist($sortie);
+
+        }
 
 
+
+
+
+
+
+        //Sortie avec beaucoup de participants
+        $sortieGenerale = new Sortie();
+        $date = new DateTime("now");
+        $date->add(new DateInterval("P2D"));
+        $sortieGenerale->setNom("Beaucoup de monde")
+            ->setDateHeureDebut(new \DateTime("now"))
+            ->setDuree(240)
+            ->setDateLimiteInscription($date)
+            ->setNbInscriptionsMax($i)
+            ->setInfosSortie("on va se promener bande de couillons")
+            ->setEtat($etat)
+            ->setLieu($lieu)
+            ->setOrganisateur($user)
+            ->setSiteOrganisateur($site)
+            ->addListeParticipant($user)
+        ;
+        $manager->persist($sortieGenerale);
+        for ($i=1; $i <= 15; $i++) {
+        $user = new User();
+        $user->setNom("Marens".$i)
+        ->setPrenom("Jean°".$i)
+        ->setTelephone("0606060606")
+        ->setAdministrateur(0)
+        ->setActif(1)
+        ->setPassword( '$argon2id$v=19$m=65536,t=4,p=1$cE9ZT1JmOGkvTFB0UW9YdA$CQP0WXtOBHko0vvDGy3Zwwfveecdrj1qSHoBUkT56xc')
+        ->setEmail("jean".$i."@defaut.com")
+        ->setSiteRattachement($site)
+        ->setRoles(["ROLE_USER"])
+        ->setPseudo('jeanjean'.$i)
+        ->addSorty($sortieGenerale);
+        $sortieGenerale->addListeParticipant($user);
+        $manager->persist($user);
+        $manager->persist($sortieGenerale);
+
+        }
 
         $manager->flush();
     }
-
-
-
-
-
 }
