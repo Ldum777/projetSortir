@@ -8,13 +8,13 @@
 
 {% block body %}
     <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <h3 class="alert-{{ label }} ">
-                {{ message }}
-            </h3>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <h3 class="alert-{{ label }} ">
+                    {{ message }}
+                </h3>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
     </div>
 
     <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
@@ -27,65 +27,72 @@
     {{ form_start(formSortie) }}
 
     <div class="row col-12 pt-2">
-    <div class="container align-items-center col-10 col-sm-8 col-md-6 col-lg-6 col-xl-3">
-    <div class="form-group">
+        <div class="container align-items-center col-10 col-sm-8 col-md-6 col-lg-6 col-xl-3">
+            <div class="form-group">
 
-        {{ form_label(formSortie.nom) }}
-        <span style="color:red;">{{ form_errors(formSortie.nom)}}
-            {{ form_widget(formSortie.nom, {'attr': {'class': 'form-control'}}) }}
-    </div>
+                {{ form_label(formSortie.nom) }}
+                <span style="color:red;">{{ form_errors(formSortie.nom)}}</span>
+                    {{ form_widget(formSortie.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    <div class="form-group">
-        {{ form_label(formSortie.dateHeureDebut) }}
-        <span style="color:red;">{{ form_errors(formSortie.dateHeureDebut)}}
-            {{ form_widget(formSortie.dateHeureDebut, {'attr': {'class': 'form-control'}}) }}
-    </div>
+            <div class="form-group">
+                {{ form_label(formSortie.dateHeureDebut) }}
+                <span style="color:red;">{{ form_errors(formSortie.dateHeureDebut)}}</span>
+                    {{ form_widget(formSortie.dateHeureDebut, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    <div class="form-group">
-        {{ form_label(formSortie.duree) }}
-        <span style="color:red;">{{ form_errors(formSortie.duree)}}
-            {{ form_widget(formSortie.duree, {'attr': {'class': 'form-control'}}) }}
-    </div>
+            <div class="form-group">
+                {{ form_label(formSortie.duree) }}
+                <span style="color:red;">{{ form_errors(formSortie.duree)}}</span>
+                    {{ form_widget(formSortie.duree, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    <div class="form-group">
-        {{ form_label(formSortie.dateLimiteInscription) }}
-        <span style="color:red;">{{ form_errors(formSortie.dateLimiteInscription)}}
-            {{ form_widget(formSortie.dateLimiteInscription, {'attr': {'class': 'form-control'}}) }}
-    </div>
+            <div class="form-group">
+                {{ form_label(formSortie.dateLimiteInscription) }}
+                <span style="color:red;">{{ form_errors(formSortie.dateLimiteInscription)}}</span>
+                    {{ form_widget(formSortie.dateLimiteInscription, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    <div class="form-group">
-        {{ form_label(formSortie.nbInscriptionsMax) }}
-        <span style="color:red;">{{ form_errors(formSortie.nbInscriptionsMax) }}
-            {{ form_widget(formSortie.nbInscriptionsMax, {'attr': {'class': 'form-control'}}) }}
-    </div>
+            <div class="form-group">
+                {{ form_label(formSortie.nbInscriptionsMax) }}
+                <span style="color:red;">{{ form_errors(formSortie.nbInscriptionsMax) }}</span>
+                    {{ form_widget(formSortie.nbInscriptionsMax, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    <div class="form-group">
-        {{ form_label(formSortie.infosSortie) }}
-        <span style="color:red;">{{ form_errors(formSortie.infosSortie)}}
-            {{ form_widget(formSortie.infosSortie, {'attr': {'class': 'form-control'}}) }}
-    </div>
+            <div class="form-group">
+                {{ form_label(formSortie.infosSortie) }}
+                <span style="color:red;">{{ form_errors(formSortie.infosSortie)}}</span>
+                    {{ form_widget(formSortie.infosSortie, {'attr': {'class': 'form-control'}}) }}
+            </div>
 
-    <div class="form-group">
-        {{ form_label(formSortie.ville) }}
-        <span style="color:red;">{{ form_errors(formSortie.ville)}}
-            {{ form_widget(formSortie.ville, {'attr': {'class': 'form-control'}}) }}
-    </div>
-    <div class="form-group">
-        {{ form_label(formSortie.lieu) }}
-        <span style="color:red;">{{ form_errors(formSortie.lieu)}}
+            <div class="form-group">
+                {{ form_label(formSortie.ville) }}
+                <span style="color:red;">{{ form_errors(formSortie.ville)}}</span>
+                    {{ form_widget(formSortie.ville, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(formSortie.lieu) }}
+                <span style="color:red;">{{ form_errors(formSortie.lieu)}}</span>
+            <div class="row d-flex ">
+                <div class="col-7">
             {{ form_widget(formSortie.lieu, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-5">
+            <a href="{{ path('sortie_create_lieu') }}" class="btn-sm btn-warning">Ajouter un lieu</a>
+                </div>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-around mt-5 mb-5" align="center">
+
+
+                {{ form_widget(formSortie.enregistrer, {'attr': {'class': 'btn btn-light'}}) }}
+                {{ form_widget(formSortie.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+
+            </div>
+        </div>
     </div>
-
-
-        <div class="row justify-content-around mb-5" align="center">
-
-            {{ form_widget(formSortie.submit, {'attr': {'class': 'btn btn-primary'}}) }}
-            {{ form_widget(formSortie.enregistrer, {'attr': {'class': 'btn btn-light'}}) }}
-            {{ form_widget(formSortie.ajout, {'attr': {'class': 'btn btn-warning'}}) }}
-
-        </div>
-       </div>
-        </div>
 
     {{ form_end(formSortie) }}
 
@@ -128,9 +135,9 @@
                             $('#sortie_form_lieu').append(o);
                         }
                     })
-                    .fail(function(){
-                        console.log('erreur');
-                    })
+                        .fail(function(){
+                            console.log('erreur');
+                        })
                 }
             }
 

@@ -93,9 +93,7 @@ class SortieFormType extends AbstractType
             'label' => 'Enregistrer',
 
         ]);
-        $builder ->add ('ajout', SubmitType::class, [
-            'label' => 'Ajouter un lieu',
-        ]);
+
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event){
            $sortie = $event->getData();
