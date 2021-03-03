@@ -43,6 +43,12 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //dump($form);
             //exit();
+            $pseudo = $form->get('pseudo')->getData();
+            $test = preg_match('/[\\/^£$%&*\'()}{@#~?><,|=+¬]/', $pseudo);
+            if($test != 0){
+                $this->addFlash('string', 'Pseudo invalide, petit coquinou !');
+                return $this -> redirectToRoute('profile_display');
+            };
             $password=$encoder->encodePassword($utilisateurEnCours, $utilisateurEnCours->getPlainPassword());
             $utilisateurEnCours->setPassword($password);
             $entityManager->flush();

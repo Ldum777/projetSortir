@@ -31,6 +31,9 @@ class EditProfileFormType extends AbstractType
             'label'=> 'Pseudo',
             'trim'=> true,
             'required' => true,
+            'attr' => [
+                'pattern'=> '[a-zA-Z0-9_-]*'
+            ],
 
         ]);
         $builder->add('telephone', TextType::class, [
