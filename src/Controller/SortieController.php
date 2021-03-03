@@ -114,16 +114,11 @@ class SortieController extends AbstractController
         }
 
     /**
-     * @Route(name="editer", path="editer", methods={"GET", "POST"})
+     * @Route(name="editer", path="editer/{id}", methods={"GET", "POST"})
      *
      */
-    public function editer(EntityManagerInterface $entityManager, Request $request){
-        $sortie = new sortie();
+    public function editer(EntityManagerInterface $entityManager, Request $request, Sortie $sortie ){
 
-        if ($request->get('id')!=null){
-            $sortie = $entityManager->getRepository(Sortie::class)->find($request->get('id'));
-
-        }
 
         $formSortie = $this->createForm(SortieFormType::class, $sortie);
 
