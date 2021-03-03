@@ -285,7 +285,11 @@ public function create_lieu(EntityManagerInterface $entityManager, Request $requ
         $this->addFlash("success", "Lieu créé !");
         $entityManager->persist($lieu);
         $entityManager->flush();
-        return $this->redirectToRoute('sortie_create');
+
+        $sortie = new Sortie();
+        $sortie->setLieu($lieu);
+        $formSortie = $this->createForm(SortieFormType::class, $sortie);
+        return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
     }
 
     return $this->render('sortie/createLieu.html.twig', ['formLieu'=> $formLieu->createView()]);

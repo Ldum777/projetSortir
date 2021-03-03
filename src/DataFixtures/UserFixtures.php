@@ -218,12 +218,12 @@ class UserFixtures extends Fixture
             $date->add(new DateInterval("P".$i."D"));
 
             $sortie = new Sortie();
-            $sortie->setNom("Vamos a la playa N°".$i)
+            $sortie->setNom("On va au restau".$i)
                 ->setDateHeureDebut(new \DateTime("now"))
                 ->setDuree(240)
                 ->setDateLimiteInscription($date)
                 ->setNbInscriptionsMax($i)
-                ->setInfosSortie("on va se promener bande de couillons")
+                ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat)
                 ->setLieu($lieu)
                 ->setOrganisateur($user)
@@ -240,12 +240,12 @@ class UserFixtures extends Fixture
             $date->add(new DateInterval("P".$i."D"));
 
             $sortie = new Sortie();
-            $sortie->setNom("Vamos a la playa N°".$i)
+            $sortie->setNom("On va au restau".$i)
                 ->setDateHeureDebut(new \DateTime("now"))
                 ->setDuree(240)
                 ->setDateLimiteInscription($date)
                 ->setNbInscriptionsMax(0)
-                ->setInfosSortie("on va se promener bande de couillons")
+                ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat)
                 ->setLieu($lieu)
                 ->setOrganisateur($user)
@@ -262,12 +262,12 @@ class UserFixtures extends Fixture
             $date->sub(new DateInterval("P".$i."D"));
 
             $sortie = new Sortie();
-            $sortie->setNom("Vamos a la playa N°".$i)
+            $sortie->setNom("On va au restau".$i)
                 ->setDateHeureDebut(new \DateTime("now"))
                 ->setDuree(240)
                 ->setDateLimiteInscription($date)
                 ->setNbInscriptionsMax($i-6)
-                ->setInfosSortie("on va se promener bande de couillons")
+                ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat2)
                 ->setLieu($lieu2)
                 ->setOrganisateur($user)
@@ -283,12 +283,12 @@ class UserFixtures extends Fixture
             $date->sub(new DateInterval("P".$i."D"));
 
             $sortie = new Sortie();
-            $sortie->setNom("Vamos a la playa N°".$i)
+            $sortie->setNom("On va au restau".$i)
                 ->setDateHeureDebut(new \DateTime("now"))
                 ->setDuree(240)
                 ->setDateLimiteInscription($date)
                 ->setNbInscriptionsMax($i-6)
-                ->setInfosSortie("on va se promener bande de couillons")
+                ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat)
                 ->setLieu($lieu2)
                 ->setOrganisateur($user)
@@ -300,12 +300,12 @@ class UserFixtures extends Fixture
         }
         for ($i=11; $i <= 13; $i++) {
         $sortie = new Sortie();
-        $sortie->setNom("Vamos a la playa N°".$i)
+        $sortie->setNom("On va au restau".$i)
             ->setDateHeureDebut(new \DateTime("now"))
             ->setDuree(240)
             ->setDateLimiteInscription(new \DateTime("now"))
             ->setNbInscriptionsMax($i-11)
-            ->setInfosSortie("on va se promener bande de couillons")
+            ->setInfosSortie("On peut pas, y a Covid !")
             ->setEtat($etat6)
             ->setLieu($lieu3)
             ->setOrganisateur($userBis)
@@ -318,12 +318,12 @@ class UserFixtures extends Fixture
 
         for ($i=14; $i <= 15; $i++) {
             $sortie = new Sortie();
-            $sortie->setNom("Vamos a la playa N°".$i)
+            $sortie->setNom("On va au restau".$i)
                 ->setDateHeureDebut(new \DateTime('2021-01-14'))
                 ->setDuree(240)
                 ->setDateLimiteInscription(new \DateTime("now"))
                 ->setNbInscriptionsMax($i-11)
-                ->setInfosSortie("on va se promener bande de couillons")
+                ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat6)
                 ->setLieu($lieu3)
                 ->setOrganisateur($userBis)
@@ -336,12 +336,12 @@ class UserFixtures extends Fixture
 
         for ($i=14; $i <= 15; $i++) {
             $sortie = new Sortie();
-            $sortie->setNom("Vamos a la playa N°".$i)
+            $sortie->setNom("On va au restau".$i)
                 ->setDateHeureDebut(new \DateTime('2021-01-14'))
                 ->setDuree(240)
                 ->setDateLimiteInscription(new \DateTime("now"))
                 ->setNbInscriptionsMax($i-11)
-                ->setInfosSortie("on va se promener bande de couillons")
+                ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat6)
                 ->setLieu($lieu3)
                 ->setOrganisateur($userBis)
@@ -367,7 +367,7 @@ class UserFixtures extends Fixture
             ->setDuree(240)
             ->setDateLimiteInscription($date)
             ->setNbInscriptionsMax($i)
-            ->setInfosSortie("on va se promener bande de couillons")
+            ->setInfosSortie("On peut pas, y a Covid !")
             ->setEtat($etat)
             ->setLieu($lieu)
             ->setOrganisateur($user)
