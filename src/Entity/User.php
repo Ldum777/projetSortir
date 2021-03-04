@@ -104,7 +104,7 @@ class User implements UserInterface
     }
 
     /**
-     * @Assert\NotBlank(message="Ce champ est requis")
+     *
      */
     private $plainPassword;
 

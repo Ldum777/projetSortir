@@ -28,7 +28,7 @@ class RegistrationController extends AbstractController
             $pseudo = $form->get('pseudo')->getData();
             $test = preg_match('/[\\/^£$%&*\'()}{@#~?><,|=+¬]/', $pseudo);
             if($test != 0){
-                $this->addFlash('string', 'Pseudo invalide, veuillez recommencer.');
+                $this->addFlash('danger', 'Pseudo invalide, veuillez recommencer.');
                 return $this -> redirectToRoute('home_home');
             };
             // encode the plain password
@@ -42,6 +42,7 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'L\'utilisateur a été créé avec succès !');
             // do anything else you need here, like send an email
 
            /* return $guardHandler->authenticateUserAndHandleSuccess(
