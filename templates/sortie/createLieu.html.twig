@@ -22,9 +22,12 @@
 
     </div>
 
-
-    {{ form_start(formLieu) }}
-
+    {% if sortie is null %}
+    {{ form_start(formLieu)}}
+    {% else %}
+    {{ form_start(formLieu, {'action': path('sortie_editer',{ 'id': sortie.id })}) }}
+    {% endif %}
+{#    {{ form_start(form, {'action': path('idprof', { 'idprof': idprof })}) }}#}
     <div class="row col-12 pt-2">
     <div class="container align-items-center col-10 col-sm-8 col-md-6 col-lg-6 col-xl-3">
     <div class="form-group">

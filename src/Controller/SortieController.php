@@ -269,6 +269,7 @@ class SortieController extends AbstractController
 
 /**
 * @Route(name="create_lieu", path="creer_lieu", methods={"GET", "POST"})
+* @Route(name="create_lieu2", path="creer_lieu{id}", methods={"GET", "POST"})
 *
 */
 public function create_lieu(EntityManagerInterface $entityManager, Request $request){
@@ -277,6 +278,8 @@ public function create_lieu(EntityManagerInterface $entityManager, Request $requ
     $formLieu->handleRequest($request);
 
     if ($formLieu -> isSubmitted() && $formLieu->isValid()) {
+
+
         $lieu->setNom($formLieu->get('nom')->getData());
         $lieu->setRue($formLieu->get('rue')->getData());
         $lieu->setLatitude($formLieu->get('latitude')->getData());
@@ -288,12 +291,18 @@ public function create_lieu(EntityManagerInterface $entityManager, Request $requ
 
         $sortie = new Sortie();
         $sortie->setLieu($lieu);
-        $formSortie = $this->createForm(SortieFormType::class, $sortie);
+        if($request->get('id') == null){
+            $formSortie = $this->createForm(SortieFormType::class, $sortie, ['action' => $this->generateUrl('sortie_create')]);
+        }else{
+            $formSortie = $this->createForm(SortieFormType::class, $sortie, ['action' => $this->generateUrl('sortie_editer', ['id'=>$request->get('id')])]);
+        }
         return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
     }
-
-    return $this->render('sortie/createLieu.html.twig', ['formLieu'=> $formLieu->createView()]);
-
+    if($request->get('id') == null) {
+        return $this->render('sortie/createLieu.html.twig', ['sortie' => null, 'formLieu' => $formLieu->createView()]);
+    }else{
+            return $this->render('sortie/createLieu.html.twig',['sortie'=>['id'=>$request->get('id')], 'formLieu'=> $formLieu->createView()]);
+         }
 
 }
 
@@ -303,6 +312,7 @@ public function create_lieu(EntityManagerInterface $entityManager, Request $requ
      *
      */
     public function api_ville(Ville $ville, LieuRepository $lieuRepository, SerializerInterface $serializer){
+        //voir doc du paramConverter
         //le $ville dans le tableau réfère au paramètre de la fonction au-dessus
         $lieux = $lieuRepository->findBy(['ville'=>$ville]);
 //        var_dump($lieux);
@@ -311,6 +321,8 @@ public function create_lieu(EntityManagerInterface $entityManager, Request $requ
 
 //        On utilise le serializer pour transformer me tableau d'objets en JSON
 //        $var = $serializer->serialize($lieux, 'json'); Avant annotation Groups
+        //Si on ne fait pas le groups, on arrive sur une boucle infinie (erreur recursive)
+        //On a fait une annotation @Groups dans l'entité Lieu
         $var = $serializer->serialize($lieux, 'json', ['groups'=>['listeLieux']]);
         //Le tableau vide est si on veut mettre des entêtes
         //Le true signife que ce qu'on envoie est déjà en json
