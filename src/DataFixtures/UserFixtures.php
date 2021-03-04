@@ -19,8 +19,8 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
 
-        $prenoms=['Albert','Béatrice','Charlotte','David','Eric','François','Gerrard','Hector','Igor','Janick','Kévin','Ludivine','Marie','Nicolas','Olivier','Paul'];
-        $noms=['Aubert','Branchu','Corbier','Dumont','Esnard','Franchon','Goupillon','Henry','Ibrahimovic','Joufriaud','Kardashian','LeFranc','Macron','Nélanchon','Orion','Peguy'];
+        $noms=['Albert','Beatrice','Charlotte','David','Eric','François','Gerrard','Hector','Igor','Janick','Kevin','Ludivine','Marie','Nicolas','Olivier','Paul'];
+        $prenoms=['Aubert','Branchu','Corbier','Dumont','Esnard','Franchon','Goupillon','Henry','Ibrahimovic','Joufriaud','Kardashian','LeFranc','Macron','Nelanchon','Orion','Peguy'];
         $pseudos=['Alakazham','Bea','Chacha','Dudu','Eres','Fanfan','Gigi','Hermes','Ig','Jaja','Kev','Lulu','Mama','Nini','Olive','Peypey'];
 
         //Noms des sites
