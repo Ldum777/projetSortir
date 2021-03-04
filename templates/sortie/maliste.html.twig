@@ -36,6 +36,9 @@ Mes sorties
                         </div>
                         {#Affichage du bouton Inscription#}
                         <div class="row justify-content-around">
+                            {% if sortie.etat.libelle == "Créée" %}
+                            <a  href="{{ url('sortie_editer',{'id': sortie.id})}}"><button type="button" class="btn btn-info">Editer</button> </a>
+                            {% endif %}
                             {% if sortie.etat.libelle == "Annulée" %}
                                 <button type="button" class="btn btn-danger">Annulée</button>
                             {% else %}
@@ -77,7 +80,7 @@ Mes sorties
                                 {% if  afficherBouton == true%}
                                     <a href="{{ url('sortie_inscription',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">S'inscrire</button></a>
                                 {% elseif cloture %}
-                                    {#A REVOIR LES CONDITIONS#}
+
                                     {% if dejaInscrit %}
                                         <button type="button" class="btn btn-success">Déjà inscrit</button>
                                         <a  href="{{ url('profile_liste',{'id': sortie.id})}}"><button type="button" class="btn btn-primary">Participants</button> </a>
