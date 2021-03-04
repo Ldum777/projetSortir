@@ -122,10 +122,10 @@ class UserFixtures extends Fixture
         $etat->setLibelle("Ouverte");
         $manager->persist($etat);
         $lieu= new Lieu();
-        $lieu->setNom("Intra-Muros");
+        $lieu->setNom("Niort Intra-Muros");
         $ville=new Ville();
-        $ville->setNom("Saint-Malo")
-        ->setCodePostal("35400");
+        $ville->setNom("Niort")
+        ->setCodePostal("79000");
         $lieu->setVille($ville);
 
         $manager->persist($ville);
@@ -133,7 +133,7 @@ class UserFixtures extends Fixture
 
         $ville2=new Ville();
         $ville2->setNom("Nantes")
-            ->setCodePostal("44200");
+            ->setCodePostal("44000");
         $manager->persist($ville2);
         $ville3=new Ville();
         $ville3->setNom("Rennes")
@@ -141,13 +141,10 @@ class UserFixtures extends Fixture
         $manager->persist($ville3);
         $ville4=new Ville();
         $ville4->setNom("Angers")
-            ->setCodePostal("49100");
+            ->setCodePostal("49000");
         $manager->persist($ville4);
 
-        $lieu = new Lieu();
-        $lieu->setNom("Icepark Nantes");
-        $lieu->setVille($ville2);
-        $manager->persist($lieu);
+
 
         $lieu = new Lieu();
         $lieu->setNom("Icepark Angers");
@@ -155,28 +152,33 @@ class UserFixtures extends Fixture
         $manager->persist($lieu);
 
         $lieu = new Lieu();
-        $lieu->setNom("Stade St Malo");
+        $lieu->setNom("Stade de Niort");
         $lieu->setVille($ville);
         $manager->persist($lieu);
 
         $lieu = new Lieu();
-        $lieu->setNom("Icepark St Malo");
+        $lieu->setNom("Icepark de Niort");
         $lieu->setVille($ville);
+        $manager->persist($lieu);
+
+        $lieu = new Lieu();
+        $lieu->setNom("Icepark Nantes");
+        $lieu->setVille($ville2);
         $manager->persist($lieu);
 
         $lieu2 = new Lieu();
         $lieu2->setNom("Parc Balzac");
-        $lieu2->setVille($ville2);
+        $lieu2->setVille($ville3);
         $manager->persist($lieu2);
 
         $lieu3 = new Lieu();
-        $lieu3->setNom("Intra-Muros");
+        $lieu3->setNom("Rennes Centre");
         $lieu3->setVille($ville3);
         $manager->persist($lieu3);
 
         $lieu4 = new Lieu();
         $lieu4->setNom("Le Port");
-        $lieu4->setVille($ville2);
+        $lieu4->setVille($ville3);
         $manager->persist($lieu4);
 
         $lieu5 = new Lieu();

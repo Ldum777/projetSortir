@@ -72,8 +72,11 @@
 
     <div class="form-group">
         {{ form_label(formSortie.lieu) }}
-        <span style="color:red;">{{ form_errors(formSortie.lieu)}}
+        <span style="color:red;">{{ form_errors(formSortie.lieu)}}</span>
             {{ form_widget(formSortie.lieu, {'attr': {'class': 'form-control'}}) }}
+            <div class="col-5">
+            <a href="{{ path('sortie_create_lieu',{ 'id': sortie.id }) }}" class="btn-sm btn-warning">Ajouter un lieu</a>
+                </div>
     </div>
 
 
