@@ -21,8 +21,9 @@ class UserFixtures extends Fixture
 
         $prenoms=['Albert','Béatrice','Charlotte','David','Eric','François','Gerrard','Hector','Igor','Janick','Kévin','Ludivine','Marie','Nicolas','Olivier','Paul'];
         $noms=['Aubert','Branchu','Corbier','Dumont','Esnard','Franchon','Goupillon','Henry','Ibrahimovic','Joufriaud','Kardashian','LeFranc','Macron','Nélanchon','Orion','Peguy'];
-        $pseudos=['Alakazham','Béa','Chacha','Ducon','Eres','Fanfan','Gégé','Hermes','Ig','Jaja','Kéké','Lulu','Mama','Nini','Olive','Pépé'];
+        $pseudos=['Alakazham','Bea','Chacha','Dudu','Eres','Fanfan','Gigi','Hermes','Ig','Jaja','Kev','Lulu','Mama','Nini','Olive','Peypey'];
 
+        //Noms des sites
         $site = new Site();
         $site->setNom("Nantes");
         $manager->persist($site);
@@ -44,7 +45,7 @@ class UserFixtures extends Fixture
         $manager->persist($site5);
 
 
-
+        //Profils Utilisateurs dont 1 admin et 15 utilisateurs
         $userAdmin = new User();
         $userAdmin->setPrenom("AdminName")
                 ->setNom("AdminSurname")
@@ -118,18 +119,12 @@ class UserFixtures extends Fixture
 
             $manager->persist($user);
         }
-        $etat= new Etat();
-        $etat->setLibelle("Ouverte");
-        $manager->persist($etat);
-        $lieu= new Lieu();
-        $lieu->setNom("Intra-Muros");
+
+        //Villes (liées aux lieux de sortie)
         $ville=new Ville();
         $ville->setNom("Saint-Malo")
         ->setCodePostal("35400");
-        $lieu->setVille($ville);
-
         $manager->persist($ville);
-        $manager->persist($lieu);
 
         $ville2=new Ville();
         $ville2->setNom("Nantes")
@@ -143,6 +138,12 @@ class UserFixtures extends Fixture
         $ville4->setNom("Angers")
             ->setCodePostal("49100");
         $manager->persist($ville4);
+
+        //Lieux de sortie
+        $lieu= new Lieu();
+        $lieu->setNom("Intra-Muros");
+        $lieu->setVille($ville);
+        $manager->persist($lieu);
 
         $lieu = new Lieu();
         $lieu->setNom("Icepark Nantes");
@@ -185,6 +186,11 @@ class UserFixtures extends Fixture
         $manager->persist($lieu5);
 
 
+        // Etats des sorties
+        $etat= new Etat();
+        $etat->setLibelle("Ouverte");
+        $manager->persist($etat);
+
         $etat2 = new Etat();
         $etat2->setLibelle("Créée");
         $manager->persist($etat2);
@@ -205,13 +211,7 @@ class UserFixtures extends Fixture
         $etat6->setLibelle("Annulée");
         $manager->persist($etat6);
 
-
-
-
-
-
-
-
+        //Sorties
         for ($i=1; $i <= 3; $i++) {
             //Préparation de la date
             $date = new DateTime("now");
