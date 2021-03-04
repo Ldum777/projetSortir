@@ -24,21 +24,21 @@ class UserFixtures extends Fixture
         $pseudos=['Alakazham','Bea','Chacha','Dudu','Eres','Fanfan','Gigi','Hermes','Ig','Jaja','Kev','Lulu','Mama','Nini','Olive','Peypey'];
 
         //Noms des sites
+        $site4 = new Site();
+        $site4->setNom("Niort");
+        $manager->persist($site4);
+
         $site = new Site();
         $site->setNom("Nantes");
         $manager->persist($site);
-
-        $site2 = new Site();
-        $site2->setNom("Angers");
-        $manager->persist($site2);
 
         $site3 = new Site();
         $site3->setNom("Rennes");
         $manager->persist($site3);
 
-        $site4 = new Site();
-        $site4->setNom("Niort");
-        $manager->persist($site4);
+        $site2 = new Site();
+        $site2->setNom("Angers");
+        $manager->persist($site2);
 
         $site5 = new Site();
         $site5->setNom("Quimper");
@@ -122,7 +122,7 @@ class UserFixtures extends Fixture
 
         //Villes (liées aux lieux de sortie)
         $ville=new Ville();
-        $ville->setNom("Saint-Malo")
+        $ville->setNom("Niort")
         ->setCodePostal("35400");
         $manager->persist($ville);
 
@@ -141,7 +141,7 @@ class UserFixtures extends Fixture
 
         //Lieux de sortie
         $lieu= new Lieu();
-        $lieu->setNom("Intra-Muros");
+        $lieu->setNom("Centre");
         $lieu->setVille($ville);
         $manager->persist($lieu);
 
@@ -156,28 +156,28 @@ class UserFixtures extends Fixture
         $manager->persist($lieu);
 
         $lieu = new Lieu();
-        $lieu->setNom("Stade St Malo");
+        $lieu->setNom("Stade Bréhieux");
         $lieu->setVille($ville);
         $manager->persist($lieu);
 
         $lieu = new Lieu();
-        $lieu->setNom("Icepark St Malo");
+        $lieu->setNom("Cinéma");
         $lieu->setVille($ville);
         $manager->persist($lieu);
 
         $lieu2 = new Lieu();
-        $lieu2->setNom("Parc Balzac");
+        $lieu2->setNom("Le château");
         $lieu2->setVille($ville2);
         $manager->persist($lieu2);
 
         $lieu3 = new Lieu();
-        $lieu3->setNom("Intra-Muros");
+        $lieu3->setNom("La boulangerie");
         $lieu3->setVille($ville3);
         $manager->persist($lieu3);
 
         $lieu4 = new Lieu();
         $lieu4->setNom("Le Port");
-        $lieu4->setVille($ville2);
+        $lieu4->setVille($ville4);
         $manager->persist($lieu4);
 
         $lieu5 = new Lieu();
@@ -225,7 +225,7 @@ class UserFixtures extends Fixture
                 ->setNbInscriptionsMax($i)
                 ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat)
-                ->setLieu($lieu)
+                ->setLieu($lieu2)
                 ->setOrganisateur($user)
                 ->setSiteOrganisateur($site)
                 ->addListeParticipant($user)
@@ -247,7 +247,7 @@ class UserFixtures extends Fixture
                 ->setNbInscriptionsMax(0)
                 ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat)
-                ->setLieu($lieu)
+                ->setLieu($lieu2)
                 ->setOrganisateur($user)
                 ->setSiteOrganisateur($site)
                 ->addListeParticipant($user)
@@ -269,7 +269,7 @@ class UserFixtures extends Fixture
                 ->setNbInscriptionsMax($i-6)
                 ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat2)
-                ->setLieu($lieu2)
+                ->setLieu($lieu4)
                 ->setOrganisateur($user)
                 ->setSiteOrganisateur($site2)
                 ->addListeParticipant($user);
@@ -290,7 +290,7 @@ class UserFixtures extends Fixture
                 ->setNbInscriptionsMax($i-6)
                 ->setInfosSortie("On peut pas, y a Covid !")
                 ->setEtat($etat)
-                ->setLieu($lieu2)
+                ->setLieu($lieu4)
                 ->setOrganisateur($user)
                 ->setSiteOrganisateur($site2)
                 ->addListeParticipant($userBis);
@@ -369,7 +369,7 @@ class UserFixtures extends Fixture
             ->setNbInscriptionsMax($i)
             ->setInfosSortie("On peut pas, y a Covid !")
             ->setEtat($etat)
-            ->setLieu($lieu)
+            ->setLieu($lieu2)
             ->setOrganisateur($user)
             ->setSiteOrganisateur($site)
             ->addListeParticipant($user)
