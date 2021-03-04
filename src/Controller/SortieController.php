@@ -276,9 +276,9 @@ public function create_lieu(EntityManagerInterface $entityManager, Request $requ
     $lieu = new Lieu();
     $formLieu = $this->createForm(LieuFormType::class, $lieu);
     $formLieu->handleRequest($request);
-
+//    dd($formLieu);
     if ($formLieu -> isSubmitted() && $formLieu->isValid()) {
-
+//        dd($formLieu);
 
         $lieu->setNom($formLieu->get('nom')->getData());
         $lieu->setRue($formLieu->get('rue')->getData());
@@ -294,7 +294,10 @@ public function create_lieu(EntityManagerInterface $entityManager, Request $requ
         if($request->get('id') == null){
             $formSortie = $this->createForm(SortieFormType::class, $sortie, ['action' => $this->generateUrl('sortie_create')]);
         }else{
+
+//            $formSortie = $this->createForm(SortieFormType::class, $sortie, ['action' => $this->generateUrl('sortie_editer', ['sortie'=>$entityManager->getRepository(Sortie::class)->find($request->get('id'))])]);
             $formSortie = $this->createForm(SortieFormType::class, $sortie, ['action' => $this->generateUrl('sortie_editer', ['id'=>$request->get('id')])]);
+            return $this->render('sortie/edit.html.twig', ['sortie'=>$entityManager->getRepository(Sortie::class)->find($request->get('id')), 'formSortie'=> $formSortie->createView()]);
         }
         return $this->render('sortie/create.html.twig', ['formSortie'=> $formSortie->createView()]);
     }
